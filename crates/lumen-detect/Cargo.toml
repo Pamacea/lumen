@@ -1,0 +1,24 @@
+[package]
+name = "lumen-detect"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords = ["lumen", "detection", "framework"]
+categories = ["development-tools"]
+
+[dependencies]
+lumen-core = { path = "../lumen-core" }
+
+serde = { workspace = true }
+serde_json = { workspace = true }
+toml = { workspace = true }
+walkdir = { workspace = true }
+glob = { workspace = true }
+regex = { workspace = true }
+tracing = { workspace = true }
+
+# For parsing Cargo.toml and package.json
+cargo_toml = "0.20"

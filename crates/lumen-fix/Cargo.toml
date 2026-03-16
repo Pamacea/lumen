@@ -1,0 +1,21 @@
+[package]
+name = "lumen-fix"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords = ["lumen", "fix", "auto-fix"]
+categories = ["development-tools"]
+
+[dependencies]
+lumen-core = { path = "../lumen-core" }
+lumen-score = { path = "../lumen-score" }
+lumen-analyze = { path = "../lumen-analyze" }
+
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+regex = { workspace = true }
+chrono = { workspace = true }

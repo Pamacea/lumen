@@ -1,0 +1,46 @@
+[package]
+name = "lumen-cli"
+version = "0.5.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["Oalacea <contact@oalacea.com>"]
+license = "MIT"
+repository = "https://github.com/Oalacea/lumen"
+keywords = ["lumen", "cli", "testing"]
+categories = ["development-tools::cargo-plugins", "development-tools::testing"]
+description = "AI-powered code analysis and test generation toolkit"
+readme = "../../README.md"
+
+[[bin]]
+name = "lumen"
+path = "src/main.rs"
+
+[dependencies]
+# Internal crates - path for local dev, version for crates.io
+lumen-core = { path = "../lumen-core", version = "0.5.0" }
+lumen-detect = { path = "../lumen-detect", version = "0.5.0" }
+lumen-analyze = { path = "../lumen-analyze", version = "0.5.0" }
+lumen-score = { path = "../lumen-score", version = "0.5.0" }
+lumen-report = { path = "../lumen-report", version = "0.5.0" }
+lumen-testgen = { path = "../lumen-testgen", version = "0.5.0" }
+lumen-fix = { path = "../lumen-fix", version = "0.5.0" }
+
+# CLI
+clap = { version = "4.5", features = ["derive"] }
+console = "0.15"
+indicatif = "0.17"
+colored = "2.1"
+
+# Async/Logging
+tokio = { version = "1.40", features = ["full"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Error handling
+anyhow = "1.0"
+
+# Serialization
+serde_json = "1.0"
+
+# File system
+walkdir = "2.5"
