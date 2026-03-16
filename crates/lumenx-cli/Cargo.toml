@@ -1,6 +1,6 @@
 [package]
 name = "lumenx-cli"
-version = "0.5.1"
+version = "0.5.2"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Oalacea <contact@oalacea.com>"]
@@ -19,7 +19,7 @@ path = "src/main.rs"
 # Internal crates - path for local dev, version for crates.io
 lumenx-core = { path = "../lumenx-core", version = "0.5.1" }
 lumenx-detect = { path = "../lumenx-detect", version = "0.5.1" }
-lumenx-analyze = { path = "../lumenx-analyze", version = "0.5.1" }
+lumenx-analyze = { path = "../lumenx-analyze", version = "0.5.2" }
 lumenx-score = { path = "../lumenx-score", version = "0.5.1" }
 lumenx-report = { path = "../lumenx-report", version = "0.5.1" }
 lumenx-testgen = { path = "../lumenx-testgen", version = "0.5.1" }
