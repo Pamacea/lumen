@@ -13,6 +13,7 @@ use std::path::PathBuf;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 mod cli;
+mod watch;
 
 use cli::{
     AnalyzerType, Commands, LumenCli, OutputFormat, SeverityLevel, TestFramework,
@@ -161,6 +162,25 @@ async fn run(cli: LumenCli) -> anyhow::Result<()> {
                 output,
                 trend,
                 all,
+            )?
+        }
+        Commands::Watch {
+            path,
+            include,
+            exclude,
+            include_patterns,
+            exclude_patterns,
+            debounce_ms,
+            no_startup,
+        } => {
+            cmd_watch(
+                path.unwrap_or_else(|| ".".into()),
+                include,
+                exclude,
+                include_patterns,
+                exclude_patterns,
+                debounce_ms,
+                no_startup,
             )?
         }
     }
@@ -881,6 +901,155 @@ fn cmd_report(
     println!("\nOutput directory: {}", output_dir.display());
 
     Ok(())
+}
+
+fn cmd_watch(
+    path: PathBuf,
+    include: Option<String>,
+    exclude: Option<String>,
+    include_patterns: Option<String>,
+    exclude_patterns: Option<String>,
+    debounce_ms: u64,
+    no_startup: bool,
+) -> anyhow::Result<()> {
+    if !path.exists() {
+        return Err(anyhow::anyhow!("Path does not exist: {}", path.display()));
+    }
+
+    println!("\n{}", "Watch Mode".cyan().bold());
+    println!("Watching: {}", path.display());
+
+    // Build watch config
+    let mut config = watch::WatchConfig {
+        run_on_startup: !no_startup,
+        debounce_ms,
+        ..Default::default()
+    };
+
+    // Parse include paths
+    if let Some(include_str) = include {
+        config.include_paths = include_str
+            .split(',')
+            .map(|s| s.trim().to_string())
+            .filter(|s| !s.is_empty())
+            .collect();
+    }
+
+    // Parse exclude paths
+    if let Some(exclude_str) = exclude {
+        config.exclude_paths = exclude_str
+            .split(',')
+            .map(|s| s.trim().to_string())
+            .filter(|s| !s.is_empty())
+            .collect();
+    }
+
+    // Parse include patterns
+    if let Some(patterns_str) = include_patterns {
+        config.include_patterns = patterns_str
+            .split(',')
+            .map(|s| s.trim().to_string())
+            .filter(|s| !s.is_empty())
+            .collect();
+    }
+
+    // Parse exclude patterns
+    if let Some(patterns_str) = exclude_patterns {
+        config.exclude_patterns = patterns_str
+            .split(',')
+            .map(|s| s.trim().to_string())
+            .filter(|s| !s.is_empty())
+            .collect();
+    }
+
+    // Create analysis callback
+    let project_path = path.clone();
+    let callback = move |changed_files: Vec<std::path::PathBuf>| {
+        println!("\n{}", "─".repeat(60).dimmed());
+        println!("{}", "Running analysis...".cyan().bold());
+
+        // Detect project
+        let detector = lumenx_detect::FrameworkDetector::new(&project_path);
+        let project_info: lumenx_core::ProjectInfo = match detector.detect() {
+            Ok(info) => info,
+            Err(e) => {
+                eprintln!("{} Failed to detect project: {}", "ERROR:".red(), e);
+                return;
+            }
+        };
+
+        // Scan files
+        let source_files = match scan_source_files(&project_path) {
+            Ok(files) => files,
+            Err(e) => {
+                eprintln!("{} Failed to scan source files: {}", "ERROR:".red(), e);
+                return;
+            }
+        };
+
+        let test_files = match scan_test_files(&project_path) {
+            Ok(files) => files,
+            Err(e) => {
+                eprintln!("{} Failed to scan test files: {}", "ERROR:".red(), e);
+                return;
+            }
+        };
+
+        let config_files = match scan_config_files(&project_path) {
+            Ok(files) => files,
+            Err(e) => {
+                eprintln!("{} Failed to scan config files: {}", "ERROR:".red(), e);
+                return;
+            }
+        };
+
+        let total_lines = match count_lines(&source_files) {
+            Ok(lines) => lines,
+            Err(e) => {
+                eprintln!("{} Failed to count lines: {}", "ERROR:".red(), e);
+                return;
+            }
+        };
+
+        let project = lumenx_core::Project {
+            info: project_info.clone(),
+            source_files: source_files.clone(),
+            test_files: test_files.clone(),
+            config_files,
+            total_lines,
+            coverage: None,
+        };
+
+        // Run analysis
+        let analyzer = lumenx_analyze::Analyzer::new(project.clone());
+        match analyzer.analyze() {
+            Ok(analysis_result) => {
+                let dimension_scores = calculate_dimension_scores(
+                    &analysis_result,
+                    &source_files,
+                    total_lines,
+                    &test_files,
+                );
+
+                let overall = dimension_scores.weighted_sum();
+                let grade = lumenx_score::Grade::from_score(overall);
+
+                println!("{} Overall Score: {:.1}/100 ({})", "✓".green(), overall, grade);
+            }
+            Err(e) => {
+                eprintln!("{} Analysis failed: {}", "ERROR:".red(), e);
+            }
+        }
+    };
+
+    // Create and start watcher
+    let mut handler = watch::WatchHandler::new(
+        path,
+        config,
+        callback,
+    ).map_err(|e| anyhow::anyhow!("Failed to create watcher: {}", e))?;
+
+    handler.start().map_err(|e| anyhow::anyhow!("Watch error: {}", e))
 }
 
 // ============================================================================

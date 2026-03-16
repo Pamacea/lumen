@@ -7,3 +7,4 @@ pub mod performance_analyzer;
 pub mod seo_analyzer;
 pub mod uiux_analyzer;
 pub mod docs_analyzer;
+pub mod coverage_analyzer;

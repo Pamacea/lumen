@@ -53,6 +53,9 @@ pub enum LumenError {
 
     #[error("Fix application failed: {0}")]
     FixFailed(String),
+
+    #[error("Watch error: {0}")]
+    WatchError(String),
 }
 
 /// Result type alias

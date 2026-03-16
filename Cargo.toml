@@ -8,4 +8,7 @@ members = [
     "crates/lumenx-report",
     "crates/lumenx-testgen",
     "crates/lumenx-fix",
+    "crates/lumenx-history",
+    "crates/lumenx-diff",
 ]
+resolver = "2"

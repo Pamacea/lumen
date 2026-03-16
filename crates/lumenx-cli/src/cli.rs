@@ -9,7 +9,7 @@ use std::path::PathBuf;
 #[derive(Parser, Debug)]
 #[command(name = "lumen")]
 #[command(author = "Oalacea <contact@oalacea.com>")]
-#[command(version = "0.5.0")]
+#[command(version = "0.6.0")]
 #[command(about = "AI-powered code analysis and test generation toolkit", long_about = None)]
 #[command(after_help = "Examples:
   lumen scan
@@ -200,6 +200,37 @@ pub enum Commands {
         /// Generate all available formats
         #[arg(long)]
         all: bool,
+    },
+
+    /// Watch for changes and re-run analysis automatically
+    Watch {
+        /// Path to project directory
+        #[arg(short, long)]
+        path: Option<PathBuf>,
+
+        /// Paths to include (comma-separated)
+        #[arg(long)]
+        include: Option<String>,
+
+        /// Paths to exclude (comma-separated)
+        #[arg(long)]
+        exclude: Option<String>,
+
+        /// File patterns to include (comma-separated, e.g., "*.ts,*.rs")
+        #[arg(long)]
+        include_patterns: Option<String>,
+
+        /// File patterns to exclude (comma-separated)
+        #[arg(long)]
+        exclude_patterns: Option<String>,
+
+        /// Debounce delay in milliseconds
+        #[arg(long, default_value = "300")]
+        debounce_ms: u64,
+
+        /// Don't run analysis on startup
+        #[arg(long)]
+        no_startup: bool,
     },
 }
 

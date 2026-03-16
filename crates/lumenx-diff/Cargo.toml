@@ -1,0 +1,21 @@
+[package]
+name = "lumenx-diff"
+version = "0.6.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["Oalacea <contact@oalacea.com>"]
+license = "MIT"
+repository = "https://github.com/Oalacea/lumen"
+keywords = ["lumen", "diff", "pr", "git", "changes"]
+categories = ["development-tools", "version-control"]
+description = "Git diff and PR analysis for Lumen"
+
+[dependencies]
+lumenx-core = { path = "../lumenx-core", version = "0.6.0" }
+lumenx-analyze = { path = "../lumenx-analyze", version = "0.6.0" }
+lumenx-score = { path = "../lumenx-score", version = "0.6.0" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+git2 = "0.19"
+tracing = "0.1"
+thiserror = "2.0"

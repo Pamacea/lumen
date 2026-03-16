@@ -4,11 +4,13 @@ pub mod typescript;
 pub mod rust;
 pub mod css;
 pub mod html;
+pub mod python;
 
 pub use typescript::{TypeScriptParser, TypeScriptAnalyzer};
 pub use rust::{RustParser, RustAnalyzer};
 pub use css::{CssParser, CssAnalyzer};
 pub use html::{HtmlParser, HtmlAnalyzer};
+pub use python::{PythonParser, PythonAnalyzer};
 
 use lumenx_core::LumenResult;
 
