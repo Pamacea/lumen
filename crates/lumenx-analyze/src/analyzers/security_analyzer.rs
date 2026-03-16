@@ -419,28 +419,39 @@ impl SecurityAnalyzer {
         let source_files = self.find_source_files(info)?;
 
         // Check for hardcoded credentials
-        let hardcoded_creds = Regex::new(r#"(?i)(password|passwd|pwd|secret)\s*[:=]\s*['\"](?!env|\$|\$\{)([a-zA-Z0-9@#$%^&*]{8,})['"]"#).unwrap();
+        // Note: Rust regex doesn't support lookarounds, so we match and filter manually
+        let hardcoded_creds_pattern = Regex::new(r#"(?i)(password|passwd|pwd|secret)\s*[:=]\s*['\"]([a-zA-Z0-9@#$%^&*]{8,})['"]"#).unwrap();
 
         let mut hardcoded_count = 0;
 
         for file_path in &source_files {
             if let Ok(content) = std::fs::read_to_string(file_path) {
                 for (line_idx, line) in content.lines().enumerate() {
-                    if hardcoded_creds.is_match(line) && !self.is_likely_safe_context(file_path, line) {
-                        hardcoded_count += 1;
-                        if hardcoded_count <= 3 {
-                            issues.push(ScoreIssue {
-                                id: "sec-004".to_string(),
-                                severity: IssueSeverity::Critical,
-                                category: "security".to_string(),
-                                title: "Hardcoded credentials detected".to_string(),
-                                description: "Hardcoded passwords or secrets in source code can be exploited by attackers.".to_string(),
-                                file: Some(file_path.to_string_lossy().to_string()),
-                                line: Some(line_idx + 1),
-                                column: None,
-                                impact: 20.0,
-                                suggestion: Some("Move credentials to environment variables:\n\n```typescript\n// ❌ BAD:\nconst password = 'SuperSecret123';\n\n// ✅ GOOD:\nconst password = process.env.DB_PASSWORD;\n```\n\n```rust\n// ❌ BAD:\nlet password = \"SuperSecret123\";\n\n// ✅ GOOD:\nlet password = std::env::var(\"DB_PASSWORD\").expect(\"DB_PASSWORD must be set\");\n```".to_string()),
-                            });
+                    // Check if line matches the pattern
+                    if let Some(caps) = hardcoded_creds_pattern.captures(line) {
+                        // Get the captured value (after the quote)
+                        if let Some(value) = caps.get(2) {
+                            let value_str = value.as_str();
+                            // Filter out environment variable references
+                            if !value_str.starts_with("env")
+                                && !value_str.starts_with("$")
+                                && !self.is_likely_safe_context(file_path, line) {
+                                hardcoded_count += 1;
+                                if hardcoded_count <= 3 {
+                                    issues.push(ScoreIssue {
+                                        id: "sec-004".to_string(),
+                                        severity: IssueSeverity::Critical,
+                                        category: "security".to_string(),
+                                        title: "Hardcoded credentials detected".to_string(),
+                                        description: "Hardcoded passwords or secrets in source code can be exploited by attackers.".to_string(),
+                                        file: Some(file_path.to_string_lossy().to_string()),
+                                        line: Some(line_idx + 1),
+                                        column: None,
+                                        impact: 20.0,
+                                        suggestion: Some("Move credentials to environment variables:\n\n```typescript\n// ❌ BAD:\nconst password = 'SuperSecret123';\n\n// ✅ GOOD:\nconst password = process.env.DB_PASSWORD;\n```\n\n```rust\n// ❌ BAD:\nlet password = \"SuperSecret123\";\n\n// ✅ GOOD:\nlet password = std::env::var(\"DB_PASSWORD\").expect(\"DB_PASSWORD must be set\");\n```".to_string()),
+                                    });
+                                }
+                            }
                         }
                     }
                 }

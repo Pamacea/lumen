@@ -1,0 +1,9 @@
+C:\Users\Yanis\Projects\plugins\lumen\target\release\deps\tree_sitter_css-30d5bb28fc00e9ea.d: C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\lib.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\../../src/node-types.json C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\../../queries/highlights.scm
+
+C:\Users\Yanis\Projects\plugins\lumen\target\release\deps\libtree_sitter_css-30d5bb28fc00e9ea.rlib: C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\lib.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\../../src/node-types.json C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\../../queries/highlights.scm
+
+C:\Users\Yanis\Projects\plugins\lumen\target\release\deps\libtree_sitter_css-30d5bb28fc00e9ea.rmeta: C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\lib.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\../../src/node-types.json C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\../../queries/highlights.scm
+
+C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\lib.rs:
+C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\../../src/node-types.json:
+C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tree-sitter-css-0.21.1\bindings\rust\../../queries/highlights.scm:
