@@ -1,12 +1,12 @@
 # Lumen Code Analysis Report
 
-> **🟠 D+ Grade** - Poor - Médiocre - 60.5/100
+> **🟠 D+ Grade** - Poor - Médiocre - 61.9/100
 
 ## Score Overview
 
-### Overall Score: **60.5** / 100
+### Overall Score: **61.9** / 100
 
-████████████░░░░░░░░ 60%
+████████████░░░░░░░░ 62%
 
 | Metric | Value |
 |--------|-------|
@@ -24,13 +24,29 @@
 
 *Grade: F - Failing - Échec*
 
+<details><summary>4 issue(s) found</summary>
+
+- **🚨** Hardcoded Secret Detected - *critical*
+- **💡** Unused Function - *low*
+- **💡** Unused Function - *low*
+- **💡** Unused Function - *low*
+</details>
+
 ### 🔍 Quality
 
-**100.0** / 100 (Weight: 20%)
+**92.0** / 100 (Weight: 20%)
 
-████████████████████  100%
+██████████████████░░  92%
 
-*Grade: A+ - Outstanding - Exceptionnel*
+*Grade: A- - Very Good - Très bon*
+
+<details><summary>4 issue(s) found</summary>
+
+- **🚨** Hardcoded Secret Detected - *critical*
+- **💡** Unused Function - *low*
+- **💡** Unused Function - *low*
+- **💡** Unused Function - *low*
+</details>
 
 ### ⚡ Performance
 
@@ -42,17 +58,11 @@
 
 ### 🔒 Security
 
-**80.0** / 100 (Weight: 15%)
+**100.0** / 100 (Weight: 15%)
 
-████████████████░░░░  80%
+████████████████████  100%
 
-*Grade: B- - Slightly Above Average - Légèrement au-dessus*
-
-<details><summary>2 issue(s) found</summary>
-
-- **⚡** Missing or incomplete .gitignore - *medium*
-- **⚡** Insecure HTTP URL detected - *medium*
-</details>
+*Grade: A+ - Outstanding - Exceptionnel*
 
 ### 🔍 SEO
 
@@ -62,10 +72,8 @@
 
 *Grade: C- - Below Average - En dessous de la moyenne*
 
-<details><summary>3 issue(s) found</summary>
+<details><summary>1 issue(s) found</summary>
 
-- **⚡** Missing robots.txt file - *medium*
-- **⚠️** Missing sitemap.xml file - *high*
 - **💡** Low semantic HTML usage - *low*
 </details>
 
@@ -76,12 +84,6 @@
 ████████████░░░░░░░░  60%
 
 *Grade: D+ - Poor - Médiocre*
-
-<details><summary>2 issue(s) found</summary>
-
-- **⚡** Missing CONTRIBUTING guide - *medium*
-- **💡** Missing CHANGELOG file - *low*
-</details>
 
 ### 🎨 UI/UX
 
@@ -96,84 +98,131 @@
 - **🚨** No focus styles found - *critical*
 </details>
 
-## Issues (8)
+## Issues (10)
 
 ### CRITICAL
+
+#### 🚨 Hardcoded Secret Detected
+
+**coverage** - *critical*
+> Possible hardcoded credential on line 4
+
+<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
+
+CODE_BLOCK_START
+Move credentials to environment variables
+CODE_BLOCK_END
+</details>
+
+#### 🚨 Hardcoded Secret Detected
+
+**quality** - *critical*
+> Possible hardcoded credential on line 4
+
+<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
+
+CODE_BLOCK_START
+Move credentials to environment variables
+CODE_BLOCK_END
+</details>
 
 #### 🚨 No focus styles found
 
 **uiux** - *critical*
 > Keyboard users need visible focus indicators
 
-### High Priority
+### Low Priority
 
-#### ⚠️ Missing sitemap.xml file
+#### 💡 Unused Function
 
-**seo** - *high*
-> Sitemaps help search engines discover and index your pages efficiently.
+**coverage** - *low*
+> Function 'processItems' is never called
 
-### Medium Priority
-
-#### ⚡ Missing or incomplete .gitignore
-
-**security** - *medium*
-> Sensitive files may be committed to version control without proper .gitignore rules.
-
-#### ⚡ Insecure HTTP URL detected
-
-**security** - *medium*
-> HTTP URLs transmit data in plain text, allowing interception.
-
-<details><summary>Location: .\examples\test-app\src\index.js</summary>
+<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
 
 CODE_BLOCK_START
-Use HTTPS for all external connections:
-
-```typescript
-// ❌ BAD:
-const apiUrl = 'http://api.example.com/data';
-
-// ✅ GOOD:
-const apiUrl = 'https://api.example.com/data';
-```
+Remove this function or export it
 CODE_BLOCK_END
 </details>
 
-#### ⚡ Missing robots.txt file
+#### 💡 Unused Function
 
-**seo** - *medium*
-> robots.txt tells search crawlers which pages they can access. This is essential for proper crawling.
+**coverage** - *low*
+> Function 'getUsersWithPosts' is never called
 
-#### ⚡ Missing CONTRIBUTING guide
+<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
 
-**docs** - *medium*
-> A CONTRIBUTING guide helps new contributors understand how to participate in your project.
+CODE_BLOCK_START
+Remove this function or export it
+CODE_BLOCK_END
+</details>
 
-### Low Priority
+#### 💡 Unused Function
+
+**coverage** - *low*
+> Function 'fetchData' is never called
+
+<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
+
+CODE_BLOCK_START
+Remove this function or export it
+CODE_BLOCK_END
+</details>
+
+#### 💡 Unused Function
+
+**quality** - *low*
+> Function 'processItems' is never called
+
+<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
+
+CODE_BLOCK_START
+Remove this function or export it
+CODE_BLOCK_END
+</details>
+
+#### 💡 Unused Function
+
+**quality** - *low*
+> Function 'getUsersWithPosts' is never called
+
+<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
+
+CODE_BLOCK_START
+Remove this function or export it
+CODE_BLOCK_END
+</details>
+
+#### 💡 Unused Function
+
+**quality** - *low*
+> Function 'fetchData' is never called
+
+<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
+
+CODE_BLOCK_START
+Remove this function or export it
+CODE_BLOCK_END
+</details>
 
 #### 💡 Low semantic HTML usage
 
 **seo** - *low*
 > Only 0% of layout elements use semantic tags. Semantic HTML helps search engines understand content structure.
 
-#### 💡 Missing CHANGELOG file
-
-**docs** - *low*
-> A CHANGELOG helps users track what changed between versions.
-
 ## Analysis Metadata
 
 | Property | Value |
 |----------|-------|
-| **Project** | unknown |
+| **Project** | lumen |
 | **Framework** | Unknown |
 | **Language** | JavaScript |
 | **Test Runner** | Jest |
-| **Lumen Version** | 0.5.2 |
-| **Scan Duration** | 6444 ms |
+| **Lumen Version** | 0.6.0 |
+| **Scan Duration** | 15047 ms |
 | **Files Scanned** | 0 |
 | **Lines of Code** | 0 |
-| **Generated** | 2026-03-16 16:25:39 UTC |
+| **Generated** | 2026-03-16 17:54:50 UTC |
 
 ## Recommendations
 

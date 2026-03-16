@@ -1,0 +1,14 @@
+# LumenX robots.txt
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow specific paths
+Disallow: /target/
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /package/
+
+# Sitemap location
+Sitemap: https://github.com/Pamacea/lumen/sitemap.xml

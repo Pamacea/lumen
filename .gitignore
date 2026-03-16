@@ -1,3 +1,99 @@
+# Claude Code
 .claude/
+
+# ExGSE
 .ex-g-se/
+
+# Smite
 .smite/
+
+# Dependencies
+target/
+node_modules/
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+.env.test
+
+# Secrets
+*.key
+*.pem
+*.cert
+*.crt
+secrets/
+credentials/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Rust
+**/*.rs.bk
+*.pdb
+Cargo.lock
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# Logs
+*.log
+logs/
+
+# Test coverage
+*.profraw
+*.profdata
+coverage/
+
+# Reports
+lumen-reports/
+
+# Package files
+*.tar.gz
+*.zip
+*.gem
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.backup
+*~
+*.orig
+
+# Build artifacts
+package/
+*.o
+*.a
+*.so
+*.dll
+*.dylib
+*.exe

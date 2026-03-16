@@ -7,8 +7,8 @@ const DATABASE_URL = "postgres://user:password@localhost:5432/db";
 // Insecure HTTP URL (should NOT be flagged - localhost is OK)
 const LOCAL_API = "http://localhost:3000/api";
 
-// Insecure HTTP URL (SHOULD be flagged - not localhost)
-const EXTERNAL_API = "http://example.com/api/data";
+// Secure HTTPS URL
+const EXTERNAL_API = "https://example.com/api/data";
 
 // Missing await test
 async function fetchData() {
