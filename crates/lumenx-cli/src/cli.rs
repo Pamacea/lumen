@@ -9,7 +9,7 @@ use std::path::PathBuf;
 #[derive(Parser, Debug)]
 #[command(name = "lumen")]
 #[command(author = "Oalacea <contact@oalacea.com>")]
-#[command(version = "0.6.0")]
+#[command(version = "0.6.1")]
 #[command(about = "AI-powered code analysis and test generation toolkit", long_about = None)]
 #[command(after_help = "Examples:
   lumen scan
