@@ -1,12 +1,12 @@
 # Lumen Code Analysis Report
 
-> **🟠 D+ Grade** - Poor - Médiocre - 61.9/100
+> **🟠 D+ Grade** - Poor - Médiocre - 63.5/100
 
 ## Score Overview
 
-### Overall Score: **61.9** / 100
+### Overall Score: **63.5** / 100
 
-████████████░░░░░░░░ 62%
+█████████████░░░░░░░ 63%
 
 | Metric | Value |
 |--------|-------|
@@ -24,29 +24,13 @@
 
 *Grade: F - Failing - Échec*
 
-<details><summary>4 issue(s) found</summary>
-
-- **🚨** Hardcoded Secret Detected - *critical*
-- **💡** Unused Function - *low*
-- **💡** Unused Function - *low*
-- **💡** Unused Function - *low*
-</details>
-
 ### 🔍 Quality
 
-**92.0** / 100 (Weight: 20%)
+**100.0** / 100 (Weight: 20%)
 
-██████████████████░░  92%
+████████████████████  100%
 
-*Grade: A- - Very Good - Très bon*
-
-<details><summary>4 issue(s) found</summary>
-
-- **🚨** Hardcoded Secret Detected - *critical*
-- **💡** Unused Function - *low*
-- **💡** Unused Function - *low*
-- **💡** Unused Function - *low*
-</details>
+*Grade: A+ - Outstanding - Exceptionnel*
 
 ### ⚡ Performance
 
@@ -93,117 +77,9 @@
 
 *Grade: C- - Below Average - En dessous de la moyenne*
 
-<details><summary>1 issue(s) found</summary>
-
-- **🚨** No focus styles found - *critical*
-</details>
-
-## Issues (10)
-
-### CRITICAL
-
-#### 🚨 Hardcoded Secret Detected
-
-**coverage** - *critical*
-> Possible hardcoded credential on line 4
-
-<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
-
-CODE_BLOCK_START
-Move credentials to environment variables
-CODE_BLOCK_END
-</details>
-
-#### 🚨 Hardcoded Secret Detected
-
-**quality** - *critical*
-> Possible hardcoded credential on line 4
-
-<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
-
-CODE_BLOCK_START
-Move credentials to environment variables
-CODE_BLOCK_END
-</details>
-
-#### 🚨 No focus styles found
-
-**uiux** - *critical*
-> Keyboard users need visible focus indicators
+## Issues (1)
 
 ### Low Priority
-
-#### 💡 Unused Function
-
-**coverage** - *low*
-> Function 'processItems' is never called
-
-<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
-
-CODE_BLOCK_START
-Remove this function or export it
-CODE_BLOCK_END
-</details>
-
-#### 💡 Unused Function
-
-**coverage** - *low*
-> Function 'getUsersWithPosts' is never called
-
-<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
-
-CODE_BLOCK_START
-Remove this function or export it
-CODE_BLOCK_END
-</details>
-
-#### 💡 Unused Function
-
-**coverage** - *low*
-> Function 'fetchData' is never called
-
-<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
-
-CODE_BLOCK_START
-Remove this function or export it
-CODE_BLOCK_END
-</details>
-
-#### 💡 Unused Function
-
-**quality** - *low*
-> Function 'processItems' is never called
-
-<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
-
-CODE_BLOCK_START
-Remove this function or export it
-CODE_BLOCK_END
-</details>
-
-#### 💡 Unused Function
-
-**quality** - *low*
-> Function 'getUsersWithPosts' is never called
-
-<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
-
-CODE_BLOCK_START
-Remove this function or export it
-CODE_BLOCK_END
-</details>
-
-#### 💡 Unused Function
-
-**quality** - *low*
-> Function 'fetchData' is never called
-
-<details><summary>Location: C:/Users/Yanis/Projects/plugins/lumen\examples\test-app\src\index.js</summary>
-
-CODE_BLOCK_START
-Remove this function or export it
-CODE_BLOCK_END
-</details>
 
 #### 💡 Low semantic HTML usage
 
@@ -218,11 +94,11 @@ CODE_BLOCK_END
 | **Framework** | Unknown |
 | **Language** | JavaScript |
 | **Test Runner** | Jest |
-| **Lumen Version** | 0.6.0 |
-| **Scan Duration** | 15047 ms |
+| **Lumen Version** | 0.6.1 |
+| **Scan Duration** | 8742 ms |
 | **Files Scanned** | 0 |
 | **Lines of Code** | 0 |
-| **Generated** | 2026-03-16 17:54:50 UTC |
+| **Generated** | 2026-03-16 18:06:22 UTC |
 
 ## Recommendations
 

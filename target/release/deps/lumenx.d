@@ -6,4 +6,4 @@ crates\lumenx-cli\src\main.rs:
 crates\lumenx-cli\src\cli.rs:
 crates\lumenx-cli\src\watch.rs:
 
-# env-dep:CARGO_PKG_VERSION=0.6.0
+# env-dep:CARGO_PKG_VERSION=0.6.1

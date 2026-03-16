@@ -6,4 +6,4 @@ src\main.rs:
 src\cli.rs:
 src\watch.rs:
 
-# env-dep:CARGO_PKG_VERSION=0.6.0
+# env-dep:CARGO_PKG_VERSION=0.6.1

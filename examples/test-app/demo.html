@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LumenX Test App - Demo</title>
+    <script src="./src/main.js" type="module"></script>
+</head>
+<body>
+    <h1>LumenX Test App</h1>
+    <p>This demo page uses all exported functions:</p>
+    <ul>
+        <li>fetchData - Fetches data from API</li>
+        <li>processItems - Processes multiple items in parallel</li>
+        <li>getUsersWithPosts - Gets users with their posts</li>
+    </ul>
+    <button onclick="window.exports.fetchData('/api/test').then(console.log)">
+        Test fetchData
+    </button>
+    <button onclick="window.exports.processItems().then(console.log)">
+        Test processItems
+    </button>
+    <button onclick="window.exports.getUsersWithPosts().then(console.log)">
+        Test getUsersWithPosts
+    </button>
+</body>
+</html>
