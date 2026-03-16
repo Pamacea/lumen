@@ -1,0 +1,1 @@
+C:\Users\Yanis\Projects\plugins\lumen\target\debug\liblumenx_detect.rlib: C:\Users\Yanis\Projects\plugins\lumen\target\package\lumenx-detect-0.5.1\src\detectors\mod.rs C:\Users\Yanis\Projects\plugins\lumen\target\package\lumenx-detect-0.5.1\src\lib.rs C:\Users\Yanis\Projects\plugins\lumen\target\package\lumenx-detect-0.5.1\src\patterns.rs

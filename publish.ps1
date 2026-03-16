@@ -2,7 +2,7 @@
 
 $ErrorActionPreference = "Stop"
 
-Write-Host "🚀 Publishing LumenX v0.5.1 crates to crates.io" -ForegroundColor Cyan
+Write-Host "🚀 Publishing LumenX v0.5.2 crates to crates.io" -ForegroundColor Cyan
 Write-Host "================================================" -ForegroundColor Cyan
 
 # Ordre de publication basé sur les dépendances

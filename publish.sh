@@ -3,7 +3,7 @@
 
 set -e  # Arrêter en cas d'erreur
 
-echo "🚀 Publishing LumenX v0.5.1 crates to crates.io"
+echo "🚀 Publishing LumenX v0.5.2 crates to crates.io"
 echo "================================================"
 
 # Ordre de publication basé sur les dépendances

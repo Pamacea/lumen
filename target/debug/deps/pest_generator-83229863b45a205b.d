@@ -1,0 +1,11 @@
+C:\Users\Yanis\Projects\plugins\lumen\target\debug\deps\pest_generator-83229863b45a205b.d: C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\lib.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\macros.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\docs.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\generator.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\parse_derive.rs
+
+C:\Users\Yanis\Projects\plugins\lumen\target\debug\deps\libpest_generator-83229863b45a205b.rlib: C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\lib.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\macros.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\docs.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\generator.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\parse_derive.rs
+
+C:\Users\Yanis\Projects\plugins\lumen\target\debug\deps\libpest_generator-83229863b45a205b.rmeta: C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\lib.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\macros.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\docs.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\generator.rs C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\parse_derive.rs
+
+C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\lib.rs:
+C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\macros.rs:
+C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\docs.rs:
+C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\generator.rs:
+C:\Users\Yanis\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\pest_generator-2.8.6\src\parse_derive.rs:

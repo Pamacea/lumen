@@ -601,14 +601,24 @@ impl SecurityAnalyzer {
         let mut metrics = HashMap::new();
         let mut issues = Vec::new();
 
-        // Check for http:// URLs in configuration
-        let insecure_url = Regex::new(r#"http://(?!localhost|127\.0\.0\.1|0\.0\.0\.0)[^s\"]"#).unwrap();
+        // Check for http:// URLs in configuration (excluding localhost)
+        // Note: Rust regex doesn't support lookarounds, so we match and filter manually
+        let http_url_pattern = Regex::new(r#"http://[^\s"]*"#).unwrap();
 
         for file_path in self.find_source_files(info)? {
             let file_path_str = file_path.to_string_lossy().to_string();
             if let Ok(content) = std::fs::read_to_string(&file_path) {
                 for (line_idx, line) in content.lines().enumerate() {
-                    if insecure_url.is_match(line) {
+                    // Check if line contains http:// URL
+                    if let Some(caps) = http_url_pattern.find(line) {
+                        let url = caps.as_str();
+                        // Filter out localhost and local IPs
+                        if !url.starts_with("http://localhost")
+                            && !url.starts_with("http://127.0.0.1")
+                            && !url.starts_with("http://0.0.0.0")
+                            && !url.starts_with("http://[::1")
+                            && !url.contains("//127.0.0.1:")
+                            && !url.contains("//0.0.0.0:") {
                         issues.push(ScoreIssue {
                             id: "sec-009".to_string(),
                             severity: IssueSeverity::Medium,
@@ -622,6 +632,7 @@ impl SecurityAnalyzer {
                             suggestion: Some("Use HTTPS for all external connections:\n\n```typescript\n// ❌ BAD:\nconst apiUrl = 'http://api.example.com/data';\n\n// ✅ GOOD:\nconst apiUrl = 'https://api.example.com/data';\n```".to_string()),
                         });
                         break;
+                        }
                     }
                 }
             }
