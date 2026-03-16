@@ -1,0 +1,54 @@
+/* LumenX Test App Styles */
+
+/* Focus styles for accessibility */
+*:focus {
+    outline: 2px solid #4a90d9;
+    outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+    outline: 2px solid #4a90d9;
+}
+
+*:focus-visible {
+    outline: 3px solid #4a90d9;
+    outline-offset: 2px;
+}
+
+/* Remove default outline only when mouse is used */
+:focus:not(:focus-visible) {
+    outline: 2px solid #4a90d9;
+}
+
+/* Button focus styles */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid #4a90d9;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.2);
+}
+
+/* Skip link for accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #4a90d9;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Ensure sufficient color contrast */
+.text-high-contrast {
+    color: #1a1a1a;
+    background: #ffffff;
+}

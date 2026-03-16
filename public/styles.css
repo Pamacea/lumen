@@ -1,0 +1,51 @@
+/* LumenX Public Styles - Focus and Accessibility */
+
+/* Focus styles for accessibility - meets WCAG AA standards */
+*:focus {
+    outline: 2px solid #4a90d9 !important;
+    outline-offset: 2px !important;
+}
+
+*:focus-visible {
+    outline: 3px solid #4a90d9 !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.2) !important;
+}
+
+/* Button and link focus styles */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid #4a90d9 !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.2) !important;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #4a90d9;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 9999;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Ensure visible focus indicator on all interactive elements */
+[tabindex]:focus {
+    outline: 2px solid #4a90d9 !important;
+    outline-offset: 2px !important;
+}

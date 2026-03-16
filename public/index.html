@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LumenX - AI Code Analysis Toolkit</title>
+    <style>
+        /* Focus styles for accessibility */
+        *:focus {
+            outline: 2px solid #4a90d9 !important;
+            outline-offset: 2px !important;
+        }
+        *:focus-visible {
+            outline: 3px solid #4a90d9 !important;
+            outline-offset: 2px !important;
+            box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.2) !important;
+        }
+        button:focus, a:focus, input:focus, textarea:focus, select:focus {
+            outline: 2px solid #4a90d9 !important;
+            outline-offset: 2px !important;
+        }
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #4a90d9;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip link for accessibility -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Semantic HTML structure -->
+    <header role="banner">
+        <nav aria-label="Main navigation">
+            <h1>LumenX - AI Code Analysis Toolkit</h1>
+        </nav>
+    </header>
+
+    <main id="main" role="main">
+        <section aria-labelledby="features">
+            <h2 id="features">Features</h2>
+            <article>
+                <p>AI-powered code analysis for security, performance, and quality.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2026 LumenX</p>
+    </footer>
+</body>
+</html>
