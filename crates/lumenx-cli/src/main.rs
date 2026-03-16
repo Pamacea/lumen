@@ -199,7 +199,7 @@ async fn cmd_scan(
 
     // Step 2: Detect framework
     pb.set_message("Detecting framework and tools...");
-    let detector = lumen_detect::FrameworkDetector::new(&path);
+    let detector = lumenx_detect::FrameworkDetector::new(&path);
     let project_info = detector.detect()?;
     pb.inc(1);
 
@@ -213,7 +213,7 @@ async fn cmd_scan(
 
     // Step 4: Analyze code
     pb.set_message("Analyzing code quality...");
-    let project = lumen_core::Project {
+    let project = lumenx_core::Project {
         info: project_info.clone(),
         source_files: source_files.clone(),
         test_files: test_files.clone(),
@@ -222,7 +222,7 @@ async fn cmd_scan(
         coverage: None,
     };
 
-    let analyzer = lumen_analyze::Analyzer::new(project.clone());
+    let analyzer = lumenx_analyze::Analyzer::new(project.clone());
     let analysis_result = analyzer.analyze()?;
     pb.inc(1);
 
@@ -236,10 +236,10 @@ async fn cmd_scan(
     );
 
     let overall = dimension_scores.weighted_sum();
-    let grade = lumen_score::Grade::from_score(overall);
+    let grade = lumenx_score::Grade::from_score(overall);
     let commit_sha = get_current_commit_sha(&path);
 
-    let mut score = lumen_score::ProjectScore {
+    let mut score = lumenx_score::ProjectScore {
         project_name: project_info.name.clone(),
         commit_sha,
         timestamp: std::time::SystemTime::now()
@@ -250,7 +250,7 @@ async fn cmd_scan(
         grade,
         dimensions: dimension_scores,
         trend: None,
-        metadata: lumen_score::ScoreMetadata {
+        metadata: lumenx_score::ScoreMetadata {
             scorer_version: VERSION.to_string(),
             scan_duration_ms: start.elapsed().as_millis() as u64,
             files_scanned: source_files.len(),
@@ -268,17 +268,17 @@ async fn cmd_scan(
     });
 
     let report_format = format.unwrap_or(OutputFormat::Markdown);
-    let report_gen = lumen_report::ReportGenerator::new(
+    let report_gen = lumenx_report::ReportGenerator::new(
         project_info.clone(),
         score.clone(),
         output_dir.clone(),
     );
 
     let format_match = match report_format {
-        OutputFormat::Markdown => lumen_report::ReportFormat::Markdown,
-        OutputFormat::Json => lumen_report::ReportFormat::Json,
-        OutputFormat::Html => lumen_report::ReportFormat::Html,
-        OutputFormat::JUnit => lumen_report::ReportFormat::JUnit,
+        OutputFormat::Markdown => lumenx_report::ReportFormat::Markdown,
+        OutputFormat::Json => lumenx_report::ReportFormat::Json,
+        OutputFormat::Html => lumenx_report::ReportFormat::Html,
+        OutputFormat::JUnit => lumenx_report::ReportFormat::JUnit,
     };
 
     let reports = report_gen.generate(format_match)?;
@@ -372,7 +372,7 @@ fn cmd_detect(path: PathBuf, json: bool, detailed: bool) -> anyhow::Result<()> {
         return Err(anyhow::anyhow!("Path does not exist: {}", path.display()));
     }
 
-    let detector = lumen_detect::FrameworkDetector::new(&path);
+    let detector = lumenx_detect::FrameworkDetector::new(&path);
     let info = detector.detect()?;
 
     if json {
@@ -433,7 +433,7 @@ fn cmd_analyze(
         return Err(anyhow::anyhow!("Path does not exist: {}", path.display()));
     }
 
-    let detector = lumen_detect::FrameworkDetector::new(&path);
+    let detector = lumenx_detect::FrameworkDetector::new(&path);
     let project_info = detector.detect()?;
 
     let source_files = scan_source_files(&path)?;
@@ -441,7 +441,7 @@ fn cmd_analyze(
     let config_files = scan_config_files(&path)?;
     let total_lines = count_lines(&source_files)?;
 
-    let project = lumen_core::Project {
+    let project = lumenx_core::Project {
         info: project_info,
         source_files: source_files.clone(),
         test_files,
@@ -450,7 +450,7 @@ fn cmd_analyze(
         coverage: None,
     };
 
-    let analyzer_engine = lumen_analyze::Analyzer::new(project);
+    let analyzer_engine = lumenx_analyze::Analyzer::new(project);
     let analysis_result = analyzer_engine.analyze()?;
 
     let min_severity = severity.unwrap_or(SeverityLevel::Low);
@@ -509,7 +509,7 @@ fn cmd_score(
         return Err(anyhow::anyhow!("Path does not exist: {}", path.display()));
     }
 
-    let detector = lumen_detect::FrameworkDetector::new(&path);
+    let detector = lumenx_detect::FrameworkDetector::new(&path);
     let project_info = detector.detect()?;
 
     // Run analysis
@@ -518,7 +518,7 @@ fn cmd_score(
     let config_files = scan_config_files(&path)?;
     let total_lines = count_lines(&source_files)?;
 
-    let project = lumen_core::Project {
+    let project = lumenx_core::Project {
         info: project_info.clone(),
         source_files: source_files.clone(),
         test_files: test_files.clone(),
@@ -527,7 +527,7 @@ fn cmd_score(
         coverage: None,
     };
 
-    let analyzer = lumen_analyze::Analyzer::new(project.clone());
+    let analyzer = lumenx_analyze::Analyzer::new(project.clone());
     let analysis_result = analyzer.analyze()?;
 
     // Calculate scores
@@ -539,9 +539,9 @@ fn cmd_score(
     );
 
     let overall = dimension_scores.weighted_sum();
-    let grade = lumen_score::Grade::from_score(overall);
+    let grade = lumenx_score::Grade::from_score(overall);
 
-    let score = lumen_score::ProjectScore {
+    let score = lumenx_score::ProjectScore {
         project_name: project_info.name.clone(),
         commit_sha: get_current_commit_sha(&path),
         timestamp: SystemTime::now()
@@ -552,7 +552,7 @@ fn cmd_score(
         grade,
         dimensions: dimension_scores,
         trend: None,
-        metadata: lumen_score::ScoreMetadata::default(),
+        metadata: lumenx_score::ScoreMetadata::default(),
     };
 
     if json {
@@ -589,7 +589,7 @@ fn cmd_generate_tests(
         return Err(anyhow::anyhow!("Path does not exist: {}", path.display()));
     }
 
-    let detector = lumen_detect::FrameworkDetector::new(&path);
+    let detector = lumenx_detect::FrameworkDetector::new(&path);
     let project_info = detector.detect()?;
 
     println!("\n{}", "Test Generation".cyan().bold());
@@ -598,19 +598,19 @@ fn cmd_generate_tests(
     // Map CLI framework to internal framework
     let test_framework = match framework.unwrap_or(TestFramework::Auto) {
         TestFramework::Auto => match project_info.framework {
-            lumen_core::Framework::NextJs
-            | lumen_core::Framework::Remix
-            | lumen_core::Framework::ViteReact => lumen_testgen::TestFramework::Vitest,
-            lumen_core::Framework::Axum
-            | lumen_core::Framework::ActixWeb
-            | lumen_core::Framework::Rocket => lumen_testgen::TestFramework::RustBuiltIn,
-            _ => lumen_testgen::TestFramework::Vitest,
+            lumenx_core::Framework::NextJs
+            | lumenx_core::Framework::Remix
+            | lumenx_core::Framework::ViteReact => lumenx_testgen::TestFramework::Vitest,
+            lumenx_core::Framework::Axum
+            | lumenx_core::Framework::ActixWeb
+            | lumenx_core::Framework::Rocket => lumenx_testgen::TestFramework::RustBuiltIn,
+            _ => lumenx_testgen::TestFramework::Vitest,
         },
-        TestFramework::Vitest => lumen_testgen::TestFramework::Vitest,
-        TestFramework::Jest => lumen_testgen::TestFramework::Jest,
-        TestFramework::Cargo => lumen_testgen::TestFramework::RustBuiltIn,
-        TestFramework::Nextest => lumen_testgen::TestFramework::RustBuiltIn,
-        TestFramework::Pytest => lumen_testgen::TestFramework::Pytest,
+        TestFramework::Vitest => lumenx_testgen::TestFramework::Vitest,
+        TestFramework::Jest => lumenx_testgen::TestFramework::Jest,
+        TestFramework::Cargo => lumenx_testgen::TestFramework::RustBuiltIn,
+        TestFramework::Nextest => lumenx_testgen::TestFramework::RustBuiltIn,
+        TestFramework::Pytest => lumenx_testgen::TestFramework::Pytest,
     };
 
     // Create a simple test generation result
@@ -628,16 +628,16 @@ fn cmd_generate_tests(
         fs::create_dir_all(&test_dir)?;
 
         let test_content = match test_framework {
-            lumen_testgen::TestFramework::Vitest => generate_vitest_sample(&project_info),
-            lumen_testgen::TestFramework::Jest => generate_jest_sample(&project_info),
-            lumen_testgen::TestFramework::RustBuiltIn => generate_rust_test_sample(&project_info),
+            lumenx_testgen::TestFramework::Vitest => generate_vitest_sample(&project_info),
+            lumenx_testgen::TestFramework::Jest => generate_jest_sample(&project_info),
+            lumenx_testgen::TestFramework::RustBuiltIn => generate_rust_test_sample(&project_info),
             _ => "# Placeholder test file\n".to_string(),
         };
 
         let test_file = test_dir.join("sample.test.");
         let ext = match test_framework {
-            lumen_testgen::TestFramework::Vitest | lumen_testgen::TestFramework::Jest => "ts",
-            lumen_testgen::TestFramework::RustBuiltIn => "rs",
+            lumenx_testgen::TestFramework::Vitest | lumenx_testgen::TestFramework::Jest => "ts",
+            lumenx_testgen::TestFramework::RustBuiltIn => "rs",
             _ => "txt",
         };
 
@@ -679,7 +679,7 @@ fn cmd_fix(
     }
 
     // Run analysis first
-    let detector = lumen_detect::FrameworkDetector::new(&path);
+    let detector = lumenx_detect::FrameworkDetector::new(&path);
     let project_info = detector.detect()?;
 
     let source_files = scan_source_files(&path)?;
@@ -687,7 +687,7 @@ fn cmd_fix(
     let config_files = scan_config_files(&path)?;
     let total_lines = count_lines(&source_files)?;
 
-    let project = lumen_core::Project {
+    let project = lumenx_core::Project {
         info: project_info,
         source_files,
         test_files,
@@ -696,7 +696,7 @@ fn cmd_fix(
         coverage: None,
     };
 
-    let analyzer = lumen_analyze::Analyzer::new(project);
+    let analyzer = lumenx_analyze::Analyzer::new(project);
     let analysis_result = analyzer.analyze()?;
 
     // Collect all fixable issues
@@ -727,10 +727,10 @@ fn cmd_fix(
     println!("\nFound {} fixable issues:", fixable_issues.len());
 
     // Group by severity
-    let critical = fixable_issues.iter().filter(|i| i.severity == lumen_score::IssueSeverity::Critical).count();
-    let high = fixable_issues.iter().filter(|i| i.severity == lumen_score::IssueSeverity::High).count();
-    let medium = fixable_issues.iter().filter(|i| i.severity == lumen_score::IssueSeverity::Medium).count();
-    let low = fixable_issues.iter().filter(|i| i.severity == lumen_score::IssueSeverity::Low).count();
+    let critical = fixable_issues.iter().filter(|i| i.severity == lumenx_score::IssueSeverity::Critical).count();
+    let high = fixable_issues.iter().filter(|i| i.severity == lumenx_score::IssueSeverity::High).count();
+    let medium = fixable_issues.iter().filter(|i| i.severity == lumenx_score::IssueSeverity::Medium).count();
+    let low = fixable_issues.iter().filter(|i| i.severity == lumenx_score::IssueSeverity::Low).count();
 
     println!("  {} Critical", critical.to_string().red().bold());
     println!("  {} High", high.to_string().red());
@@ -739,9 +739,9 @@ fn cmd_fix(
 
     // Apply fixes
     let fix_engine = if dry_run {
-        lumen_fix::FixEngine::new(path.clone()).with_dry_run()
+        lumenx_fix::FixEngine::new(path.clone()).with_dry_run()
     } else {
-        lumen_fix::FixEngine::new(path.clone())
+        lumenx_fix::FixEngine::new(path.clone())
     };
 
     if interactive && !yes {
@@ -805,7 +805,7 @@ fn cmd_report(
     println!("\n{}", "Generating Reports".cyan().bold());
 
     // Detect and analyze
-    let detector = lumen_detect::FrameworkDetector::new(&path);
+    let detector = lumenx_detect::FrameworkDetector::new(&path);
     let project_info = detector.detect()?;
 
     let source_files = scan_source_files(&path)?;
@@ -813,7 +813,7 @@ fn cmd_report(
     let config_files = scan_config_files(&path)?;
     let total_lines = count_lines(&source_files)?;
 
-    let project = lumen_core::Project {
+    let project = lumenx_core::Project {
         info: project_info.clone(),
         source_files: source_files.clone(),
         test_files: test_files.clone(),
@@ -822,7 +822,7 @@ fn cmd_report(
         coverage: None,
     };
 
-    let analyzer = lumen_analyze::Analyzer::new(project.clone());
+    let analyzer = lumenx_analyze::Analyzer::new(project.clone());
     let analysis_result = analyzer.analyze()?;
 
     let dimension_scores = calculate_dimension_scores(
@@ -833,9 +833,9 @@ fn cmd_report(
     );
 
     let overall = dimension_scores.weighted_sum();
-    let grade = lumen_score::Grade::from_score(overall);
+    let grade = lumenx_score::Grade::from_score(overall);
 
-    let mut score = lumen_score::ProjectScore {
+    let mut score = lumenx_score::ProjectScore {
         project_name: project_info.name.clone(),
         commit_sha: get_current_commit_sha(&path),
         timestamp: SystemTime::now()
@@ -846,7 +846,7 @@ fn cmd_report(
         grade,
         dimensions: dimension_scores,
         trend: None,
-        metadata: lumen_score::ScoreMetadata::default(),
+        metadata: lumenx_score::ScoreMetadata::default(),
     };
 
     if trend {
@@ -855,7 +855,7 @@ fn cmd_report(
 
     let output_dir = output.unwrap_or_else(|| path.join("lumen-reports"));
 
-    let report_gen = lumen_report::ReportGenerator::new(
+    let report_gen = lumenx_report::ReportGenerator::new(
         project_info,
         score,
         output_dir.clone(),
@@ -865,10 +865,10 @@ fn cmd_report(
         report_gen.generate_all()?
     } else {
         let fmt = match format.unwrap_or(OutputFormat::Markdown) {
-            OutputFormat::Markdown => lumen_report::ReportFormat::Markdown,
-            OutputFormat::Json => lumen_report::ReportFormat::Json,
-            OutputFormat::Html => lumen_report::ReportFormat::Html,
-            OutputFormat::JUnit => lumen_report::ReportFormat::JUnit,
+            OutputFormat::Markdown => lumenx_report::ReportFormat::Markdown,
+            OutputFormat::Json => lumenx_report::ReportFormat::Json,
+            OutputFormat::Html => lumenx_report::ReportFormat::Html,
+            OutputFormat::JUnit => lumenx_report::ReportFormat::JUnit,
         };
         report_gen.generate(fmt)?
     };
@@ -913,19 +913,19 @@ fn print_banner() {
     println!();
 }
 
-fn print_score_summary(score: &lumen_score::ProjectScore) {
+fn print_score_summary(score: &lumenx_score::ProjectScore) {
     let grade_color = match score.grade {
-        lumen_score::Grade::APlus | lumen_score::Grade::A | lumen_score::Grade::AMinus => {
+        lumenx_score::Grade::APlus | lumenx_score::Grade::A | lumenx_score::Grade::AMinus => {
             colored::Color::Green
         }
-        lumen_score::Grade::BPlus | lumen_score::Grade::B | lumen_score::Grade::BMinus => {
+        lumenx_score::Grade::BPlus | lumenx_score::Grade::B | lumenx_score::Grade::BMinus => {
             colored::Color::Blue
         }
-        lumen_score::Grade::CPlus | lumen_score::Grade::C | lumen_score::Grade::CMinus => {
+        lumenx_score::Grade::CPlus | lumenx_score::Grade::C | lumenx_score::Grade::CMinus => {
             colored::Color::Yellow
         }
-        lumen_score::Grade::DPlus | lumen_score::Grade::D => colored::Color::Magenta,
-        lumen_score::Grade::F => colored::Color::Red,
+        lumenx_score::Grade::DPlus | lumenx_score::Grade::D => colored::Color::Magenta,
+        lumenx_score::Grade::F => colored::Color::Red,
     };
 
     println!(
@@ -971,7 +971,7 @@ fn print_score_summary(score: &lumen_score::ProjectScore) {
     );
 }
 
-fn print_detailed_score(score: &lumen_score::ProjectScore) {
+fn print_detailed_score(score: &lumenx_score::ProjectScore) {
     print_score_summary(score);
 
     println!("\n{}", "Detailed Breakdown".cyan().bold());
@@ -1008,8 +1008,8 @@ fn print_detailed_score(score: &lumen_score::ProjectScore) {
 }
 
 fn print_scan_summary(
-    score: &lumen_score::ProjectScore,
-    analysis: &lumen_analyze::AnalysisResult,
+    score: &lumenx_score::ProjectScore,
+    analysis: &lumenx_analyze::AnalysisResult,
     source_files: &[PathBuf],
     duration: std::time::Duration,
 ) {
@@ -1027,7 +1027,7 @@ fn print_scan_summary(
     println!("  Low: {} {}", analysis.total_low(), "●".white());
 }
 
-fn print_findings_table(findings: &[lumen_score::ScoreIssue]) {
+fn print_findings_table(findings: &[lumenx_score::ScoreIssue]) {
     if findings.is_empty() {
         println!("\n{}", "No issues found!".green().bold());
         return;
@@ -1076,7 +1076,7 @@ fn print_findings_table(findings: &[lumen_score::ScoreIssue]) {
     }
 }
 
-fn print_fix_result(result: &lumen_fix::FixResult, dry_run: bool) {
+fn print_fix_result(result: &lumenx_fix::FixResult, dry_run: bool) {
     if dry_run {
         println!("\n{}", "Dry Run Results".yellow());
     } else {
@@ -1118,13 +1118,13 @@ fn print_detection_row(label: &str, value: &str) {
     );
 }
 
-fn severity_color(severity: lumen_score::IssueSeverity) -> colored::Color {
+fn severity_color(severity: lumenx_score::IssueSeverity) -> colored::Color {
     match severity {
-        lumen_score::IssueSeverity::Info => colored::Color::Blue,
-        lumen_score::IssueSeverity::Low => colored::Color::Cyan,
-        lumen_score::IssueSeverity::Medium => colored::Color::Yellow,
-        lumen_score::IssueSeverity::High => colored::Color::Red,
-        lumen_score::IssueSeverity::Critical => colored::Color::BrightRed,
+        lumenx_score::IssueSeverity::Info => colored::Color::Blue,
+        lumenx_score::IssueSeverity::Low => colored::Color::Cyan,
+        lumenx_score::IssueSeverity::Medium => colored::Color::Yellow,
+        lumenx_score::IssueSeverity::High => colored::Color::Red,
+        lumenx_score::IssueSeverity::Critical => colored::Color::BrightRed,
     }
 }
 
@@ -1166,7 +1166,7 @@ paths = ["node_modules", "target", "dist", "build", ".git", "vendor"]
 "#.to_string()
 }
 
-fn generate_vitest_sample(info: &lumen_core::ProjectInfo) -> String {
+fn generate_vitest_sample(info: &lumenx_core::ProjectInfo) -> String {
     format!(r#"import {{ describe, it, expect }} from 'vitest';
 
 // Auto-generated test file for {}
@@ -1183,7 +1183,7 @@ describe('{}', () => {{
 "#, info.name, VERSION, info.name)
 }
 
-fn generate_jest_sample(info: &lumen_core::ProjectInfo) -> String {
+fn generate_jest_sample(info: &lumenx_core::ProjectInfo) -> String {
     format!(r#"// Auto-generated test file for {}
 // Generated by Lumen v{}
 
@@ -1198,7 +1198,7 @@ describe('{}', () => {{
 "#, info.name, VERSION, info.name)
 }
 
-fn generate_rust_test_sample(info: &lumen_core::ProjectInfo) -> String {
+fn generate_rust_test_sample(info: &lumenx_core::ProjectInfo) -> String {
     format!(r"//! Auto-generated tests for {}
 //! Generated by Lumen v{}
 
@@ -1351,23 +1351,23 @@ fn calculate_language_breakdown(files: &[PathBuf]) -> HashMap<String, usize> {
 }
 
 fn calculate_dimension_scores(
-    analysis: &lumen_analyze::AnalysisResult,
+    analysis: &lumenx_analyze::AnalysisResult,
     source_files: &[PathBuf],
     total_lines: usize,
     test_files: &[PathBuf],
-) -> lumen_score::DimensionScores {
+) -> lumenx_score::DimensionScores {
     // Calculate coverage score
     let test_ratio = if source_files.is_empty() {
         0.0
     } else {
         (test_files.len() as f64 / source_files.len() as f64 * 100.0).min(100.0)
     };
-    let coverage_score = lumen_score::DimensionScore::new("coverage".to_string(), test_ratio, 0.25)
+    let coverage_score = lumenx_score::DimensionScore::new("coverage".to_string(), test_ratio, 0.25)
         .with_issues(analysis.static_findings.clone());
 
     // Calculate quality score (inverse of issues)
     let issue_count = analysis.static_findings.len() + analysis.dependency_findings.len();
-    let quality_score = lumen_score::DimensionScore::new(
+    let quality_score = lumenx_score::DimensionScore::new(
         "quality".to_string(),
         (100.0 - (issue_count as f64 * 2.0)).max(0.0).min(100.0),
         0.20,
@@ -1375,12 +1375,12 @@ fn calculate_dimension_scores(
     .with_issues(analysis.static_findings.clone());
 
     // Performance score
-    let perf_score = lumen_score::DimensionScore::new("performance".to_string(), 75.0, 0.15)
+    let perf_score = lumenx_score::DimensionScore::new("performance".to_string(), 75.0, 0.15)
         .with_issues(analysis.performance_findings.clone());
 
     // Security score
     let sec_issues = analysis.security_findings.len();
-    let security_score = lumen_score::DimensionScore::new(
+    let security_score = lumenx_score::DimensionScore::new(
         "security".to_string(),
         (100.0 - (sec_issues as f64 * 10.0)).max(0.0).min(100.0),
         0.15,
@@ -1388,18 +1388,18 @@ fn calculate_dimension_scores(
     .with_issues(analysis.security_findings.clone());
 
     // SEO score
-    let seo_score = lumen_score::DimensionScore::new("seo".to_string(), 70.0, 0.10)
+    let seo_score = lumenx_score::DimensionScore::new("seo".to_string(), 70.0, 0.10)
         .with_issues(analysis.seo_findings.clone());
 
     // Docs score
-    let docs_score = lumen_score::DimensionScore::new("docs".to_string(), 60.0, 0.05)
+    let docs_score = lumenx_score::DimensionScore::new("docs".to_string(), 60.0, 0.05)
         .with_issues(analysis.docs_findings.clone());
 
     // UI/UX score
-    let uiux_score = lumen_score::DimensionScore::new("uiux".to_string(), 72.0, 0.10)
+    let uiux_score = lumenx_score::DimensionScore::new("uiux".to_string(), 72.0, 0.10)
         .with_issues(analysis.uiux_findings.clone());
 
-    lumen_score::DimensionScores {
+    lumenx_score::DimensionScores {
         coverage: coverage_score,
         quality: quality_score,
         performance: perf_score,
@@ -1424,27 +1424,27 @@ fn get_current_commit_sha(path: &PathBuf) -> String {
     "unknown".to_string()
 }
 
-fn load_score_history(path: &PathBuf) -> anyhow::Result<Option<lumen_score::TrendAnalysis>> {
+fn load_score_history(path: &PathBuf) -> anyhow::Result<Option<lumenx_score::TrendAnalysis>> {
     let history_path = path.join(".lumen").join("history.json");
     if history_path.exists() {
         if let Ok(content) = fs::read_to_string(&history_path) {
-            if let Ok(history) = serde_json::from_str::<lumen_score::ScoreHistory>(&content) {
+            if let Ok(history) = serde_json::from_str::<lumenx_score::ScoreHistory>(&content) {
                 let current = history.scores.first().map(|s| s.score).unwrap_or(0.0);
                 let previous = history.scores.get(1).map(|s| s.score);
 
                 let direction = if let Some(prev) = previous {
                     if current > prev {
-                        lumen_score::TrendDirection::Improving
+                        lumenx_score::TrendDirection::Improving
                     } else if current < prev {
-                        lumen_score::TrendDirection::Declining
+                        lumenx_score::TrendDirection::Declining
                     } else {
-                        lumen_score::TrendDirection::Stable
+                        lumenx_score::TrendDirection::Stable
                     }
                 } else {
-                    lumen_score::TrendDirection::Stable
+                    lumenx_score::TrendDirection::Stable
                 };
 
-                let delta = lumen_score::ScoreDelta {
+                let delta = lumenx_score::ScoreDelta {
                     overall: previous.map_or(0.0, |p| current - p),
                     coverage: 0.0,
                     quality: 0.0,
@@ -1456,9 +1456,9 @@ fn load_score_history(path: &PathBuf) -> anyhow::Result<Option<lumen_score::Tren
                 };
 
                 let scores: Vec<f64> = history.scores.iter().map(|s| s.score).collect();
-                let moving_avg = lumen_score::MovingAverage::calculate(&scores);
+                let moving_avg = lumenx_score::MovingAverage::calculate(&scores);
 
-                return Ok(Some(lumen_score::TrendAnalysis {
+                return Ok(Some(lumenx_score::TrendAnalysis {
                     current,
                     previous,
                     direction,
@@ -1474,14 +1474,14 @@ fn load_score_history(path: &PathBuf) -> anyhow::Result<Option<lumen_score::Tren
 
 fn print_history_comparison(
     path: &PathBuf,
-    current_score: &lumen_score::ProjectScore,
+    current_score: &lumenx_score::ProjectScore,
 ) -> anyhow::Result<()> {
     if let Some(trend) = load_score_history(path)? {
         println!("\n{}", "Score Trend".cyan().bold());
         println!("  Trend: {}", match trend.direction {
-            lumen_score::TrendDirection::Improving => "↑ Improving".green(),
-            lumen_score::TrendDirection::Declining => "↓ Declining".red(),
-            lumen_score::TrendDirection::Stable => "→ Stable".white(),
+            lumenx_score::TrendDirection::Improving => "↑ Improving".green(),
+            lumenx_score::TrendDirection::Declining => "↓ Declining".red(),
+            lumenx_score::TrendDirection::Stable => "→ Stable".white(),
         });
 
         if let Some(prev) = trend.previous {

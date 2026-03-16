@@ -275,23 +275,23 @@ pub enum SeverityLevel {
 }
 
 impl SeverityLevel {
-    pub fn from_lumen_score(severity: lumen_score::IssueSeverity) -> Self {
+    pub fn from_lumen_score(severity: lumenx_score::IssueSeverity) -> Self {
         match severity {
-            lumen_score::IssueSeverity::Info => SeverityLevel::Info,
-            lumen_score::IssueSeverity::Low => SeverityLevel::Low,
-            lumen_score::IssueSeverity::Medium => SeverityLevel::Medium,
-            lumen_score::IssueSeverity::High => SeverityLevel::High,
-            lumen_score::IssueSeverity::Critical => SeverityLevel::Critical,
+            lumenx_score::IssueSeverity::Info => SeverityLevel::Info,
+            lumenx_score::IssueSeverity::Low => SeverityLevel::Low,
+            lumenx_score::IssueSeverity::Medium => SeverityLevel::Medium,
+            lumenx_score::IssueSeverity::High => SeverityLevel::High,
+            lumenx_score::IssueSeverity::Critical => SeverityLevel::Critical,
         }
     }
 
-    pub fn to_lumen_score(&self) -> lumen_score::IssueSeverity {
+    pub fn to_lumen_score(&self) -> lumenx_score::IssueSeverity {
         match self {
-            SeverityLevel::Info => lumen_score::IssueSeverity::Info,
-            SeverityLevel::Low => lumen_score::IssueSeverity::Low,
-            SeverityLevel::Medium => lumen_score::IssueSeverity::Medium,
-            SeverityLevel::High => lumen_score::IssueSeverity::High,
-            SeverityLevel::Critical => lumen_score::IssueSeverity::Critical,
+            SeverityLevel::Info => lumenx_score::IssueSeverity::Info,
+            SeverityLevel::Low => lumenx_score::IssueSeverity::Low,
+            SeverityLevel::Medium => lumenx_score::IssueSeverity::Medium,
+            SeverityLevel::High => lumenx_score::IssueSeverity::High,
+            SeverityLevel::Critical => lumenx_score::IssueSeverity::Critical,
         }
     }
 

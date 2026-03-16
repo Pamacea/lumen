@@ -1,26 +1,27 @@
 [package]
 name = "lumen-analyze"
-version.workspace = true
-edition.workspace = true
-rust-version.workspace = true
-authors.workspace = true
-license.workspace = true
-repository.workspace = true
+version = "0.5.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["Oalacea <contact@oalacea.com>"]
+license = "MIT"
+repository = "https://github.com/Pamacea/lumen"
 keywords = ["lumen", "analysis", "static-analysis"]
 categories = ["development-tools"]
+description = "Static and dynamic code analysis for Lumen"
 
 [dependencies]
-lumen-core = { path = "../lumen-core" }
-lumen-score = { path = "../lumen-score" }
+lumen-core = { version = "0.5.0", path = "../lumen-core" }
+lumen-score = { version = "0.5.0", path = "../lumen-score" }
 
-serde = { workspace = true }
-serde_json = { workspace = true }
-walkdir = { workspace = true }
-regex = { workspace = true }
-tracing = { workspace = true }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+walkdir = "2.5"
+regex = "1.11"
+tracing = "0.1"
 
 # Tree-sitter for AST parsing
-tree-sitter = { workspace = true }
+tree-sitter = "0.22"
 
 # Tree-sitter grammars
 tree-sitter-typescript = "0.21"
@@ -29,6 +30,3 @@ tree-sitter-rust = "0.21"
 tree-sitter-css = "0.21"
 tree-sitter-python = "0.21"
 tree-sitter-go = "0.21"
-
-# HTML parsing is handled via the web-sys or regex for now
-# tree-sitter-html is not available in the same form

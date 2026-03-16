@@ -1,0 +1,21 @@
+[package]
+name = "lumenx-testgen"
+version = "0.5.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["Oalacea <contact@oalacea.com>"]
+license = "MIT"
+repository = "https://github.com/Pamacea/lumen"
+keywords = ["lumen", "testing", "test-generation"]
+categories = ["development-tools"]
+description = "Automated test generation for Lumen"
+
+[dependencies]
+lumenx-core = { version = "0.5.0", path = "../lumenx-core" }
+
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+handlebars = "6.0"
+walkdir = "2.5"
+regex = "1.11"

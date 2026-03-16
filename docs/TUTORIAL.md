@@ -12,13 +12,13 @@ git clone https://github.com/votre-org/lumen.git
 cd lumen
 
 # Compiler et installer
-cargo install -p lumen --path .
+cargo install -p lumenx --path .
 ```
 
 ### Avec cargo (une fois publié)
 
 ```bash
-cargo install lumen
+cargo install lumenx-cli
 ```
 
 ## Première utilisation
@@ -27,7 +27,7 @@ cargo install lumen
 
 ```bash
 cd votre-projet
-lumen init
+lumenx init
 ```
 
 Cela crée :
@@ -38,13 +38,13 @@ Cela crée :
 
 ```bash
 # Analyse complète avec rapports
-lumen scan
+lumenx scan
 
 # Sortie JSON pour l'intégration CI
-lumen scan --format json --output results.json
+lumenx scan --format json --output results.json
 
 # Analyse avec filtres
-lumen scan --dimensions coverage,security --severity high
+lumenx scan --dimensions coverage,security --severity high
 ```
 
 ## Commandes principales
@@ -55,12 +55,12 @@ Analyse toutes les dimensions de qualité du code :
 
 ```bash
 # Usage basique
-lumen scan
+lumenx scan
 
 # Options courantes
-lumen scan --format html          # Rapport HTML
-lumen scan --format markdown     # Rapport Markdown (défaut)
-lumen scan --output ./reports    # Dossier de sortie personnalisé
+lumenx scan --format html          # Rapport HTML
+lumenx scan --format markdown     # Rapport Markdown (défaut)
+lumenx scan --output ./reports    # Dossier de sortie personnalisé
 ```
 
 **Résultat :**
@@ -74,10 +74,10 @@ lumen scan --output ./reports    # Dossier de sortie personnalisé
 Détecte automatiquement le stack technique :
 
 ```bash
-lumen detect
+lumenx detect
 
 # Sortie JSON pour les scripts
-lumen detect --json
+lumenx detect --json
 ```
 
 **Détecte :**
@@ -93,16 +93,16 @@ Analyse spécifique par type :
 
 ```bash
 # Analyse de sécurité uniquement
-lumen analyze --analyzer security
+lumenx analyze --analyzer security
 
 # Analyse statique
-lumen analyze --analyzer static
+lumenx analyze --analyzer static
 
 # Analyse de performance
-lumen analyze --analyzer performance
+lumenx analyze --analyzer performance
 
 # Avec filtrage par sévérité
-lumen analyze --severity high --output findings.json
+lumenx analyze --severity high --output findings.json
 ```
 
 **Analyzers disponibles :**
@@ -119,16 +119,16 @@ lumen analyze --severity high --output findings.json
 Calcule le score sans analyse complète :
 
 ```bash
-lumen score
+lumenx score
 
 # Score détaillé par dimension
-lumen score --detailed
+lumenx score --detailed
 
 # Comparaison avec l'historique
-lumen score --compare
+lumenx score --compare
 
 # Sortie JSON
-lumen score --json
+lumenx score --json
 ```
 
 ### 5. `lumen generate-tests` - Génération de tests
@@ -137,18 +137,18 @@ Génère des tests basés sur votre code :
 
 ```bash
 # Détection automatique du framework
-lumen generate-tests
+lumenx generate-tests
 
 # Framework spécifique
-lumen generate-tests --framework vitest
-lumen generate-tests --framework jest
-lumen generate-tests --framework pytest
+lumenx generate-tests --framework vitest
+lumenx generate-tests --framework jest
+lumenx generate-tests --framework pytest
 
 # Mode dry-run (prévisualisation)
-lumen generate-tests --dry-run
+lumenx generate-tests --dry-run
 
 # Dossier de sortie personnalisé
-lumen generate-tests --output ./my-tests
+lumenx generate-tests --output ./my-tests
 ```
 
 **Frameworks supportés :**
@@ -163,16 +163,16 @@ Corrige automatiquement certains problèmes :
 
 ```bash
 # Mode dry-run (voir les modifications sans appliquer)
-lumen fix --dry-run
+lumenx fix --dry-run
 
 # Mode interactif (confirmer chaque fix)
-lumen fix --interactive
+lumenx fix --interactive
 
 # Appliquer tout automatiquement
-lumen fix --yes
+lumenx fix --yes
 
 # Filtrer par sévérité et catégorie
-lumen fix --min-severity high --categories security,performance
+lumenx fix --min-severity high --categories security,performance
 ```
 
 ### 7. `lumen report` - Rapports avancés
@@ -181,18 +181,18 @@ Génère des rapports multi-formats :
 
 ```bash
 # Rapport unique (format par défaut: markdown)
-lumen report
+lumenx report
 
 # Tous les formats
-lumen report --all
+lumenx report --all
 
 # Format spécifique
-lumen report --format html
-lumen report --format json
-lumen report --format junit
+lumenx report --format html
+lumenx report --format json
+lumenx report --format junit
 
 # Avec analyse de tendance
-lumen report --trend
+lumenx report --trend
 ```
 
 ## Workflow recommandé
@@ -201,23 +201,23 @@ lumen report --trend
 
 ```bash
 # 1. Scanner rapide pour voir l'état actuel
-lumen scan
+lumenx scan
 
 # 2. Corriger les problèmes critiques automatiquement
-lumen fix --min-severity critical --yes
+lumenx fix --min-severity critical --yes
 
 # 3. Analyser les problèmes restants
-lumen analyze --analyzer security --severity high
+lumenx analyze --analyzer security --severity high
 
 # 4. Générer des tests pour le nouveau code
-lumen generate-tests --framework vitest
+lumenx generate-tests --framework vitest
 ```
 
 ### Intégration CI/CD
 
 ```bash
 # Dans votre pipeline CI
-lumen scan --format json --output lumen-results.json
+lumenx scan --format json --output lumen-results.json
 
 # Le code de sortie indique si le score est acceptable
 if [ $? -ne 0 ]; then
@@ -233,7 +233,7 @@ fi
 # .git/hooks/pre-commit
 
 # Vérifier le score minimum
-lumen scan --threshold 70
+lumenx scan --threshold 70
 if [ $? -ne 0 ]; then
   echo "Score de qualité insuffisant (minimum: 70)"
   exit 1
@@ -286,16 +286,16 @@ paths = ["node_modules", "target", "dist", "build", ".git", "vendor"]
 
 ```bash
 # Options globales
-lumen --help                    # Aide
-lumen --version                 # Version
-lumen --verbose                 # Verbose
-lumen --quiet                   # Silencieux
-lumen --no-color                # Pas de couleurs
+lumenx --help                    # Aide
+lumenx --version                 # Version
+lumenx --verbose                 # Verbose
+lumenx --quiet                   # Silencieux
+lumenx --no-color                # Pas de couleurs
 
 # Commutateurs utiles
-lumen scan -q                   # Mode silencieux
-lumen scan -v                   # Mode verbose
-lumen scan --format json -o -   # Sortie stdout JSON
+lumenx scan -q                   # Mode silencieux
+lumenx scan -v                   # Mode verbose
+lumenx scan --format json -o -   # Sortie stdout JSON
 ```
 
 ## Exemples d'utilisation
@@ -305,17 +305,17 @@ lumen scan --format json -o -   # Sortie stdout JSON
 ```bash
 # Analyser un projet Rust
 cd my-rust-project
-lumen scan
+lumenx scan
 
 # Vérifier la couverture
-lumen analyze --analyzer static
+lumenx analyze --analyzer static
 
 # Générer des tests
-lumen generate-tests --framework cargo
+lumenx generate-tests --framework cargo
 
 # Corriger les problèmes simples
-lumen fix --dry-run  # Voir d'abord
-lumen fix --yes       # Appliquer
+lumenx fix --dry-run  # Voir d'abord
+lumenx fix --yes       # Appliquer
 ```
 
 ### Projet Next.js
@@ -323,27 +323,27 @@ lumen fix --yes       # Appliquer
 ```bash
 # Analyser un projet Next.js
 cd my-nextjs-app
-lumen scan
+lumenx scan
 
 # Focus SEO et performance
-lumen analyze --analyzer seo,performance --severity medium
+lumenx analyze --analyzer seo,performance --severity medium
 
 # Générer tests Vitest
-lumen generate-tests --framework vitest --output src/__tests__
+lumenx generate-tests --framework vitest --output src/__tests__
 ```
 
 ### Monorepo
 
 ```bash
 # Analyser tout le monorepo
-lumen scan --path ./monorepo
+lumenx scan --path ./monorepo
 
 # Analyser un package spécifique
-lumen scan --path ./monorepo/packages/backend
+lumenx scan --path ./monorepo/packages/backend
 
 # Comparer les packages
-lumen score --path ./packages/frontend
-lumen score --path ./packages/backend
+lumenx score --path ./packages/frontend
+lumenx score --path ./packages/backend
 ```
 
 ## Interprétation des scores
@@ -376,7 +376,7 @@ lumen score --path ./packages/backend
 ```bash
 # "Path does not exist"
 # → Vérifiez que le chemin est correct
-lumen scan --path ./correct-path
+lumenx scan --path ./correct-path
 
 # "No files scanned"
 # → Vérifiez que vous avez des fichiers source dans le projet
@@ -399,7 +399,7 @@ LUMEN_LOG=debug lumen scan --verbose
 rm -rf .lumen/
 
 # Réinitialiser
-lumen init --defaults
+lumenx init --defaults
 ```
 
 ## Ressources

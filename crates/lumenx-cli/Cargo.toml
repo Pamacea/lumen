@@ -1,29 +1,29 @@
 [package]
-name = "lumen-cli"
+name = "lumenx-cli"
 version = "0.5.0"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Oalacea <contact@oalacea.com>"]
 license = "MIT"
 repository = "https://github.com/Oalacea/lumen"
-keywords = ["lumen", "cli", "testing"]
+keywords = ["lumenx", "cli", "testing"]
 categories = ["development-tools::cargo-plugins", "development-tools::testing"]
-description = "AI-powered code analysis and test generation toolkit"
+description = "AI-powered code analysis and test generation toolkit - LumenX CLI"
 readme = "../../README.md"
 
 [[bin]]
-name = "lumen"
+name = "lumenx"
 path = "src/main.rs"
 
 [dependencies]
 # Internal crates - path for local dev, version for crates.io
-lumen-core = { path = "../lumen-core", version = "0.5.0" }
-lumen-detect = { path = "../lumen-detect", version = "0.5.0" }
-lumen-analyze = { path = "../lumen-analyze", version = "0.5.0" }
-lumen-score = { path = "../lumen-score", version = "0.5.0" }
-lumen-report = { path = "../lumen-report", version = "0.5.0" }
-lumen-testgen = { path = "../lumen-testgen", version = "0.5.0" }
-lumen-fix = { path = "../lumen-fix", version = "0.5.0" }
+lumenx-core = { path = "../lumenx-core", version = "0.5.0" }
+lumenx-detect = { path = "../lumenx-detect", version = "0.5.0" }
+lumenx-analyze = { path = "../lumenx-analyze", version = "0.5.0" }
+lumenx-score = { path = "../lumenx-score", version = "0.5.0" }
+lumenx-report = { path = "../lumenx-report", version = "0.5.0" }
+lumenx-testgen = { path = "../lumenx-testgen", version = "0.5.0" }
+lumenx-fix = { path = "../lumenx-fix", version = "0.5.0" }
 
 # CLI
 clap = { version = "4.5", features = ["derive"] }

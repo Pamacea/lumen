@@ -1,70 +1,11 @@
 [workspace]
 members = [
-    "crates/lumen-cli",
-    "crates/lumen-core",
-    "crates/lumen-detect",
-    "crates/lumen-analyze",
-    "crates/lumen-score",
-    "crates/lumen-report",
-    "crates/lumen-testgen",
-    "crates/lumen-fix",
+    "crates/lumenx-cli",
+    "crates/lumenx-core",
+    "crates/lumenx-detect",
+    "crates/lumenx-analyze",
+    "crates/lumenx-score",
+    "crates/lumenx-report",
+    "crates/lumenx-testgen",
+    "crates/lumenx-fix",
 ]
-
-resolver = "2"
-
-[workspace.package]
-version = "0.5.0"
-edition = "2021"
-rust-version = "1.75"
-authors = ["Oalacea <contact@oalacea.com>"]
-license = "MIT"
-repository = "https://github.com/Oalacea/lumen"
-homepage = "https://github.com/Oalacea/lumen"
-documentation = "https://docs.rs/lumen"
-keywords = ["testing", "quality", "analysis", "cli", "developer-tools"]
-categories = [
-    "development-tools::testing",
-    "development-tools::cargo-plugins",
-    "development-tools::build-utils",
-]
-
-[workspace.dependencies]
-# Async runtime
-tokio = { version = "1.40", features = ["full"] }
-# Serialization
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-toml = "0.8"
-# Date/time
-chrono = "0.4"
-# Error handling
-anyhow = "1.0"
-thiserror = "2.0"
-# CLI
-clap = { version = "4.5", features = ["derive"] }
-console = "0.15"
-indicatif = "0.17"
-# File system
-walkdir = "2.5"
-glob = "0.3"
-# Parsing
-regex = "1.11"
-# Logging
-tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-# Colors
-colored = "2.1"
-# HTTP
-reqwest = { version = "0.12", features = ["json"] }
-# Tree-sitter (pour l'analyse AST)
-tree-sitter = "0.22"
-
-[profile.release]
-opt-level = 3
-lto = true
-codegen-units = 1
-strip = true
-panic = "abort"
-
-[profile.dev]
-opt-level = 0

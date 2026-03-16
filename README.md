@@ -24,10 +24,10 @@
 cargo install lumen-cli
 
 # Analyze your project
-lumen scan
+lumenx scan
 
 # Get AI-ready fixes
-lumen scan --output ./reports
+lumenx scan --output ./reports
 cat ./reports/fixes.md  # Feed this to Claude Code, Cursor, etc.
 ```
 
@@ -75,15 +75,15 @@ cat ./reports/fixes.md  # Feed this to Claude Code, Cursor, etc.
 ## Commands
 
 ```bash
-lumen scan                    # Full analysis with AI-ready fixes
-lumen init                    # Initialize config
-lumen detect                  # Detect framework and tools
-lumen analyze                  # Analyze code only
-lumen score                    # Show quality scores
-lumen generate-tests           # Generate test templates
-lumen fix                      # Apply automatic fixes
-lumen report --format=html     # Generate reports
-lumen history                  # View score trends
+lumenx scan                    # Full analysis with AI-ready fixes
+lumenx init                    # Initialize config
+lumenx detect                  # Detect framework and tools
+lumenx analyze                  # Analyze code only
+lumenx score                    # Show quality scores
+lumenx generate-tests           # Generate test templates
+lumenx fix                      # Apply automatic fixes
+lumenx report --format=html     # Generate reports
+lumenx history                  # View score trends
 ```
 
 ## Supported Frameworks
@@ -102,7 +102,7 @@ lumen history                  # View score trends
 
 ```bash
 # From crates.io
-cargo install lumen
+cargo install lumenx-cli
 
 # Or build from source
 cargo install --path .
