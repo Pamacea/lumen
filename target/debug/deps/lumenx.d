@@ -5,4 +5,4 @@ C:\Users\Yanis\Projects\plugins\lumen\target\debug\deps\lumenx.exe: src\main.rs 
 src\main.rs:
 src\cli.rs:
 
-# env-dep:CARGO_PKG_VERSION=0.5.1
+# env-dep:CARGO_PKG_VERSION=0.5.2

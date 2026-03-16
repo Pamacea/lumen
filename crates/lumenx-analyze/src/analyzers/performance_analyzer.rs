@@ -480,7 +480,9 @@ impl PerformanceAnalyzer {
         );
 
         // Check for fire-and-forget (missing await)
-        let missing_await = self.count_pattern_in_files(info, r"(?:const|let|var)\s+\w+\s*=\s*(?!await)[a-zA-Z_]\w*\(")?;
+        // Note: Rust regex doesn't support lookarounds, so we count potential patterns
+        // This is a simple heuristic - may have false positives
+        let missing_await = self.count_pattern_in_files(info, r"(?:const|let|var)\s+\w+\s*=\s*[a-zA-Z_]\w*\(")?;
         metrics.insert(
             "performance:potential_fire_and_forget".to_string(),
             MetricValue::Count(missing_await),

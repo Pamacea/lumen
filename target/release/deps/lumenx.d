@@ -5,4 +5,4 @@ C:\Users\Yanis\Projects\plugins\lumen\target\release\deps\lumenx.exe: crates\lum
 crates\lumenx-cli\src\main.rs:
 crates\lumenx-cli\src\cli.rs:
 
-# env-dep:CARGO_PKG_VERSION=0.5.1
+# env-dep:CARGO_PKG_VERSION=0.5.3

@@ -1,1 +1,1 @@
-C:\Users\Yanis\Projects\plugins\lumen\target\debug\lumenx.exe: C:\Users\Yanis\Projects\plugins\lumen\target\package\lumenx-cli-0.5.1\src\cli.rs C:\Users\Yanis\Projects\plugins\lumen\target\package\lumenx-cli-0.5.1\src\main.rs
+C:\Users\Yanis\Projects\plugins\lumen\target\debug\lumenx.exe: C:\Users\Yanis\Projects\plugins\lumen\target\package\lumenx-cli-0.5.2\src\cli.rs C:\Users\Yanis\Projects\plugins\lumen\target\package\lumenx-cli-0.5.2\src\main.rs

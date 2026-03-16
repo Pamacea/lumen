@@ -1,0 +1,25 @@
+{
+  "project": {
+    "name": "test-app",
+    "type": "node"
+  },
+  "analyze": {
+    "include": ["src/**/*", "index.html", "*.js"],
+    "exclude": ["node_modules/**", "dist/**", "*.test.js"]
+  },
+  "security": {
+    "enabled": true,
+    "check_secrets": true,
+    "check_insecure_urls": true
+  },
+  "performance": {
+    "enabled": true,
+    "check_n_plus_one": true,
+    "check_missing_await": true
+  },
+  "accessibility": {
+    "enabled": true,
+    "check_alt_text": true,
+    "check_form_labels": true
+  }
+}

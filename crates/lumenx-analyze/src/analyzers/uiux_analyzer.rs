@@ -677,7 +677,8 @@ fn analyze_accessibility(
     let nav_element = Regex::new(r"<nav\b").unwrap();
     let heading_pattern = Regex::new(r"<h([1-6])\b").unwrap();
     let img_with_alt = Regex::new(r#"<img[^>]*alt\s*=\s*["'][^"']*["']"#).unwrap();
-    let img_without_alt = Regex::new(r#"<img(?![^>]*alt\s*=)"#).unwrap();
+    // Note: Can't use negative lookaround, so we'll count img tags and subtract those with alt
+    let img_all = Regex::new(r"<img\b").unwrap();
     let focus_style = Regex::new(r"(:focus|\.focus|focus-visible)").unwrap();
     let aria_label = Regex::new(r#"aria-label\s*=\s*["']"#).unwrap();
     let positive_tabindex = Regex::new(r#"tabindex\s*=\s*[1-9]"#).unwrap();
@@ -709,8 +710,9 @@ fn analyze_accessibility(
         }
 
         // Count images with/without alt
+        let all_img_count = img_all.find_iter(content).count();
+        images_total += all_img_count;
         images_with_alt += img_with_alt.find_iter(content).count();
-        images_total += img_without_alt.find_iter(content).count() + images_with_alt;
 
         // Check for skip link
         if !skip_link.is_match(content) && total_tags > 50 {
