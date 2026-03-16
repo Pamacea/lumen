@@ -7,7 +7,7 @@ authors = ["Oalacea <contact@oalacea.com>"]
 license = "MIT"
 repository = "https://github.com/Oalacea/lumen"
 keywords = ["lumen", "diff", "pr", "git", "changes"]
-categories = ["development-tools", "version-control"]
+categories = ["development-tools"]
 description = "Git diff and PR analysis for Lumen"
 
 [dependencies]
