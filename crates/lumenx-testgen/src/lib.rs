@@ -4,11 +4,38 @@
 //!
 //! This crate analyzes source code and generates intelligent test templates
 //! for multiple programming languages and testing frameworks.
+//!
+//! # Performance Features
+//!
+//! - **Persistent Cache**: Avoids re-analyzing unchanged files
+//! - **Parallel Processing**: Uses Rayon for concurrent file analysis
+//! - **Incremental Generation**: Only generates tests for modified files
+//!
+//! # Example
+//!
+//! ```no_run
+//! use lumenx_testgen::{ParallelAnalyzer, ParallelAnalysisConfig, TestFramework};
+//!
+//! let analyzer = ParallelAnalyzer::with_defaults(
+//!     project_path,
+//!     TestFramework::Vitest
+//! )?;
+//!
+//! let result = analyzer.analyze_project(&project_info)?;
+//! println!("Found {} functions in {}ms",
+//!          result.functions.len(),
+//!          result.analysis_time_ms);
+//! ```
 
 pub mod analyzer;
+pub mod cache;
 pub mod code_parser;
+pub mod parallel_analyzer;
 pub mod templates;
 pub mod generator;
+
+pub use cache::{TestGenCache, CacheConfig, CacheStats, compute_file_hash};
+pub use parallel_analyzer::{ParallelAnalyzer, ParallelAnalysisConfig, ParallelAnalysisResult};
 
 use lumenx_core::{Framework, LumenResult, Language, ProjectInfo};
 use std::path::{Path, PathBuf};

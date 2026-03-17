@@ -1,6 +1,6 @@
 [package]
 name = "lumenx-fix"
-version = "0.6.0"
+version = "0.6.2"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Oalacea <contact@oalacea.com>"]
@@ -11,9 +11,9 @@ categories = ["development-tools"]
 description = "Automatic code fixes for Lumen"
 
 [dependencies]
-lumenx-core = { version = "0.6.0", path = "../lumenx-core" }
-lumenx-score = { version = "0.6.0", path = "../lumenx-score" }
-lumenx-analyze = { version = "0.6.0", path = "../lumenx-analyze" }
+lumenx-core = { version = "0.6.2", path = "../lumenx-core" }
+lumenx-score = { version = "0.6.2", path = "../lumenx-score" }
+lumenx-analyze = { version = "0.6.2", path = "../lumenx-analyze" }
 
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"

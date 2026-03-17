@@ -170,20 +170,20 @@ fn write_fix_issue(md: &mut String, dimension: &str, issue: &ScoreIssue) {
     // Suggested fix
     if let Some(suggestion) = &issue.suggestion {
         writeln!(md,"**Suggested Fix:**").unwrap();
-        writeln!(md,"CODE_BLOCK_START").unwrap();
+        writeln!(md,"```").unwrap();
         writeln!(md,"{}", suggestion).unwrap();
-        writeln!(md,"CODE_BLOCK_END").unwrap();
+        writeln!(md,"```").unwrap();
         writeln!(md).unwrap();
     }
 
     // AI Agent specific instructions
     writeln!(md,"**For AI Agents:**").unwrap();
     if let Some(file) = &issue.file {
-        writeln!(md,"BASH_CODE_BLOCK_START").unwrap();
+        writeln!(md,"```bash").unwrap();
         write!(md,"# View the problematic code").unwrap();
         writeln!(md).unwrap();
         writeln!(md,"cat -n {} | head -{}", file, issue.line.unwrap_or(10) + 5).unwrap();
-        writeln!(md,"CODE_BLOCK_END").unwrap();
+        writeln!(md,"```").unwrap();
     }
     writeln!(md).unwrap();
 }
@@ -381,14 +381,35 @@ fn write_issues(md: &mut String, dimensions: &DimensionScores) {
                 writeln!(md,"> {}", issue.description).unwrap();
                 writeln!(md).unwrap();
 
+                // Location with file:line format
                 if let Some(file) = &issue.file {
-                    writeln!(md,"<details><summary>Location: {}</summary>", file).unwrap();
+                    let line_str = issue.line.map(|l| format!(":{}", l)).unwrap_or_default();
+                    writeln!(md,"📄 **Location:** `{}`{}", file, line_str).unwrap();
                     writeln!(md).unwrap();
-                    writeln!(md,"CODE_BLOCK_START").unwrap();
-                    if let Some(suggestion) = &issue.suggestion {
-                        writeln!(md,"{}", suggestion).unwrap();
-                    }
-                    writeln!(md,"CODE_BLOCK_END").unwrap();
+                }
+
+                // Suggested fix (prominent, not hidden)
+                if let Some(suggestion) = &issue.suggestion {
+                    writeln!(md,"<details><summary>💡 Suggested Fix</summary>").unwrap();
+                    writeln!(md).unwrap();
+                    writeln!(md,"```").unwrap();
+                    writeln!(md,"{}", suggestion).unwrap();
+                    writeln!(md,"```").unwrap();
+                    writeln!(md).unwrap();
+                    writeln!(md,"</details>").unwrap();
+                    writeln!(md).unwrap();
+                }
+
+                // View code snippet (if file available)
+                if let Some(file) = &issue.file {
+                    writeln!(md,"<details><summary>🔍 View Code Snippet</summary>").unwrap();
+                    writeln!(md).unwrap();
+                    writeln!(md,"```bash").unwrap();
+                    let line_num = issue.line.unwrap_or(1);
+                    writeln!(md,"# View the problematic code").unwrap();
+                    writeln!(md,"cat -n {} | sed -n '{},{}p' | head -20", file, line_num.saturating_sub(5), line_num + 10).unwrap();
+                    writeln!(md,"```").unwrap();
+                    writeln!(md).unwrap();
                     writeln!(md,"</details>").unwrap();
                     writeln!(md).unwrap();
                 }

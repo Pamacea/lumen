@@ -1,6 +1,6 @@
 [package]
 name = "lumenx-report"
-version = "0.6.0"
+version = "0.6.2"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Oalacea <contact@oalacea.com>"]
@@ -11,8 +11,8 @@ categories = ["development-tools"]
 description = "Multi-format report generation for Lumen"
 
 [dependencies]
-lumenx-core = { version = "0.6.0", path = "../lumenx-core" }
-lumenx-score = { version = "0.6.0", path = "../lumenx-score" }
+lumenx-core = { version = "0.6.2", path = "../lumenx-core" }
+lumenx-score = { version = "0.6.2", path = "../lumenx-score" }
 
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"

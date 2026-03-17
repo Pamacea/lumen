@@ -1,6 +1,6 @@
 [package]
 name = "lumenx-testgen"
-version = "0.6.0"
+version = "0.6.2"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Oalacea <contact@oalacea.com>"]
@@ -11,11 +11,27 @@ categories = ["development-tools"]
 description = "Automated test generation for Lumen"
 
 [dependencies]
-lumenx-core = { version = "0.6.0", path = "../lumenx-core" }
+lumenx-core = { version = "0.6.2", path = "../lumenx-core" }
 
+# Serialization
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+bincode = "1.3"
+
+# Async/Logging
 tracing = "0.1"
-handlebars = "6.0"
+
+# File system
 walkdir = "2.5"
+
+# Code parsing
+handlebars = "6.0"
 regex = "1.11"
+
+# Performance & Caching
+rayon = "1.10"
+blake3 = "1.5"
+lru = "0.12"
+
+[dev-dependencies]
+tempfile = "3.10"

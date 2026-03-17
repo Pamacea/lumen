@@ -9,7 +9,7 @@ use std::path::PathBuf;
 #[derive(Parser, Debug)]
 #[command(name = "lumen")]
 #[command(author = "Oalacea <contact@oalacea.com>")]
-#[command(version = "0.6.1")]
+#[command(version = "0.6.2")]
 #[command(about = "AI-powered code analysis and test generation toolkit", long_about = None)]
 #[command(after_help = "Examples:
   lumen scan
@@ -231,6 +231,25 @@ pub enum Commands {
         /// Don't run analysis on startup
         #[arg(long)]
         no_startup: bool,
+    },
+
+    /// Manage analysis cache
+    Cache {
+        /// Path to project directory
+        #[arg(short, long)]
+        path: Option<PathBuf>,
+
+        /// Clear all cache
+        #[arg(long)]
+        clear: bool,
+
+        /// Show cache statistics
+        #[arg(long)]
+        stats: bool,
+
+        /// Prune old cache entries
+        #[arg(long)]
+        prune: bool,
     },
 }
 

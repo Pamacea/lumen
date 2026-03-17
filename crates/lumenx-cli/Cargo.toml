@@ -1,6 +1,6 @@
 [package]
 name = "lumenx-cli"
-version = "0.6.1"
+version = "0.6.2"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Oalacea <contact@oalacea.com>"]
@@ -17,15 +17,15 @@ path = "src/main.rs"
 
 [dependencies]
 # Internal crates - path for local dev, version for crates.io
-lumenx-core = { path = "../lumenx-core", version = "0.6.0" }
-lumenx-detect = { path = "../lumenx-detect", version = "0.6.0" }
-lumenx-analyze = { path = "../lumenx-analyze", version = "0.6.0" }
-lumenx-score = { path = "../lumenx-score", version = "0.6.0" }
-lumenx-report = { path = "../lumenx-report", version = "0.6.0" }
-lumenx-testgen = { path = "../lumenx-testgen", version = "0.6.0" }
-lumenx-fix = { path = "../lumenx-fix", version = "0.6.0" }
-lumenx-history = { path = "../lumenx-history", version = "0.6.0" }
-lumenx-diff = { path = "../lumenx-diff", version = "0.6.0" }
+lumenx-core = { path = "../lumenx-core", version = "0.6.2" }
+lumenx-detect = { path = "../lumenx-detect", version = "0.6.2" }
+lumenx-analyze = { path = "../lumenx-analyze", version = "0.6.2" }
+lumenx-score = { path = "../lumenx-score", version = "0.6.2" }
+lumenx-report = { path = "../lumenx-report", version = "0.6.2" }
+lumenx-testgen = { path = "../lumenx-testgen", version = "0.6.2" }
+lumenx-fix = { path = "../lumenx-fix", version = "0.6.2" }
+lumenx-history = { path = "../lumenx-history", version = "0.6.2" }
+lumenx-diff = { path = "../lumenx-diff", version = "0.6.2" }
 
 # CLI
 clap = { version = "4.5", features = ["derive"] }
@@ -47,3 +47,4 @@ serde_json = "1.0"
 # File system
 walkdir = "2.5"
 notify = "6.0"
+glob = "0.3"

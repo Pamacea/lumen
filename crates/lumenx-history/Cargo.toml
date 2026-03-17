@@ -1,6 +1,6 @@
 [package]
 name = "lumenx-history"
-version = "0.6.0"
+version = "0.6.2"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Oalacea <contact@oalacea.com>"]
@@ -11,8 +11,8 @@ categories = ["development-tools", "database"]
 description = "Score history and trend tracking for Lumen"
 
 [dependencies]
-lumenx-core = { path = "../lumenx-core", version = "0.6.0" }
-lumenx-score = { path = "../lumenx-score", version = "0.6.0" }
+lumenx-core = { path = "../lumenx-core", version = "0.6.2" }
+lumenx-score = { path = "../lumenx-score", version = "0.6.2" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 chrono = { version = "0.4", features = ["serde"] }

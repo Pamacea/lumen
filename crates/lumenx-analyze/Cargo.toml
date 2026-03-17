@@ -1,6 +1,6 @@
 [package]
 name = "lumenx-analyze"
-version = "0.6.0"
+version = "0.6.2"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Oalacea <contact@oalacea.com>"]
@@ -11,14 +11,17 @@ categories = ["development-tools"]
 description = "Static and dynamic code analysis for Lumen"
 
 [dependencies]
-lumenx-core = { version = "0.6.0", path = "../lumenx-core" }
-lumenx-score = { version = "0.6.0", path = "../lumenx-score" }
+lumenx-core = { version = "0.6.2", path = "../lumenx-core" }
+lumenx-score = { version = "0.6.2", path = "../lumenx-score" }
 
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 walkdir = "2.5"
+glob = "0.3"
 regex = "1.11"
 tracing = "0.1"
+rayon = "1.10"
+dashmap = "6.1"
 
 # Tree-sitter for AST parsing
 tree-sitter = "0.22"

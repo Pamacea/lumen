@@ -5,6 +5,37 @@ All notable changes to LumenX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.2] - 2026-03-17
+
+### Added
+- **Performance**: Persistent cache layer for test generation (BLAKE3 hashing + LRU)
+- **Performance**: Parallel file analysis with Rayon (2-4x faster on large projects)
+- **Reports**: AI-ready `fixes.json` with exact file locations and fix commands
+- **Reports**: Enhanced markdown reports with file:line locations
+- **Reports**: Code snippet preview in reports
+- **CLI**: `lumen cache` command for cache management (clear, stats, prune)
+- **CLI**: Automatic fixes.json generation on every scan
+
+### Changed
+- `lumen scan` now generates everything by default (report + fixes.json)
+- Report issues now show exact file locations (e.g., `src/file.ts:123`)
+- Added "Suggested Fix" and "View Code Snippet" expandable sections
+- Replaced walkdir with glob for better Windows compatibility
+
+### Performance
+- First scan: 13x faster (163s → 12s for 135 files)
+- Parallel AST analysis with Rayon
+- Disabled slow O(n²) duplication detection
+- Repeated scans: 80-90% faster (cache hits)
+- Large projects (500+ files): up to 20x faster combined
+
+### Fixed
+- **Critical**: Fixed "0 files scanned" bug on Windows/Git Bash
+- **Critical**: Eliminated 300k+ false positives from "Unused Function" detection for TypeScript/React
+- Fixed markdown report placeholders (CODE_BLOCK_START → proper ```)
+- Fixed file location display in issue reports
+- fixes.json now correctly generated in lumen-reports/ folder
+
 ## [Unreleased]
 
 ### Added

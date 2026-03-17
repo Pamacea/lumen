@@ -11,6 +11,7 @@ use std::fs;
 use std::io::{self, Write};
 use std::path::PathBuf;
 use std::time::{SystemTime, UNIX_EPOCH};
+use glob::glob;
 
 mod cli;
 mod watch;
@@ -183,6 +184,19 @@ async fn run(cli: LumenCli) -> anyhow::Result<()> {
                 no_startup,
             )?
         }
+        Commands::Cache {
+            path,
+            clear,
+            stats,
+            prune,
+        } => {
+            cmd_cache(
+                path.unwrap_or_else(|| ".".into()),
+                clear,
+                stats,
+                prune,
+            )?
+        }
     }
 
     Ok(())
@@ -302,6 +316,13 @@ async fn cmd_scan(
     };
 
     let reports = report_gen.generate(format_match)?;
+
+    // Generate AI-ready fixes.json
+    let fixes_json = lumenx_report::formats::generate_fixes_for_ai(&project_info, &score.dimensions);
+    let fixes_path = output_dir.join("fixes.json");
+    fs::create_dir_all(&output_dir)?;
+    fs::write(&fixes_path, fixes_json)?;
+
     pb.finish_with_message("Scan complete!");
 
     // Print summary
@@ -313,6 +334,7 @@ async fn cmd_scan(
     for report in &reports {
         println!("  - {}", report.path.display());
     }
+    println!("  - {} (AI-ready fixes)", "fixes.json".green());
 
     // Print fixes summary
     let fixable_count = analysis_result.all_findings().filter(|i| i.suggestion.is_some()).count();
@@ -382,6 +404,81 @@ fn cmd_init(path: PathBuf, defaults: bool) -> anyhow::Result<()> {
 
     println!("\n{}", "Lumen initialized successfully!".green().bold());
     println!("Run '{} {}' to analyze your project.", "lumen scan".cyan(), "--format markdown".white());
+
+    Ok(())
+}
+
+/// Cache command - Manage analysis cache
+fn cmd_cache(path: PathBuf, clear: bool, stats: bool, prune: bool) -> anyhow::Result<()> {
+    use lumenx_testgen::{TestGenCache, CacheConfig, compute_file_hash};
+
+    let cache_dir = path.join(".lumen").join("cache");
+    let config = CacheConfig {
+        cache_dir: cache_dir.clone(),
+        ..Default::default()
+    };
+
+    if clear {
+        println!("{} Clearing cache...", "🗑️".red());
+        let cache = TestGenCache::new(config)?;
+        cache.clear()?;
+        println!("{} Cache cleared!", "✓".green());
+        return Ok(());
+    }
+
+    if stats {
+        println!("{} Cache statistics:", "📊".cyan());
+        let cache = TestGenCache::new(config)?;
+        match cache.stats() {
+            Ok(stats) => {
+                println!("  Total entries: {}", stats.total_entries);
+                println!("  Memory entries: {}", stats.memory_entries);
+                println!("  Total size: {:.2} MB", stats.total_size_mb);
+                if let Some(oldest) = stats.oldest_entry {
+                    let elapsed = oldest.elapsed().unwrap_or_default().as_secs();
+                    println!("  Oldest entry: {} seconds ago", elapsed);
+                }
+                if let Some(newest) = stats.newest_entry {
+                    let elapsed = newest.elapsed().unwrap_or_default().as_secs();
+                    println!("  Newest entry: {} seconds ago", elapsed);
+                }
+            }
+            Err(e) => {
+                println!("  No cache found or error: {}", e);
+            }
+        }
+        return Ok(());
+    }
+
+    if prune {
+        println!("{} Pruning old cache entries...", "✂️".yellow());
+        let cache = TestGenCache::new(config)?;
+        let pruned = cache.prune()?;
+        println!("{} Pruned {} entries", "✓".green(), pruned);
+        return Ok(());
+    }
+
+    // Show cache info by default
+    println!("{} Cache information:", "ℹ️".cyan());
+    println!("  Location: {}", cache_dir.display());
+    let cache = TestGenCache::new(config)?;
+    match cache.stats() {
+        Ok(stats) => {
+            if stats.total_entries > 0 {
+                println!("  Status: {}Active ({} entries)", "🟢".green(), stats.total_entries);
+            } else {
+                println!("  Status: {}Empty (no cached analysis)", "⚪".white());
+            }
+        }
+        Err(_) => {
+            println!("  Status: {}Not initialized", "⚪".white());
+        }
+    }
+
+    println!("\n{} Usage:", "💡".yellow());
+    println!("  lumen cache --clear     Clear all cache");
+    println!("  lumen cache --stats     Show cache statistics");
+    println!("  lumen cache --prune     Remove old entries");
 
     Ok(())
 }
@@ -1388,30 +1485,51 @@ mod tests {{
 
 fn scan_source_files(path: &PathBuf) -> anyhow::Result<Vec<PathBuf>> {
     let mut files = Vec::new();
-    let extensions = [".rs", ".ts", ".tsx", ".js", ".jsx", ".py", ".go"];
 
-    for entry in walkdir::WalkDir::new(path)
-        .into_iter()
-        .filter_map(|e| e.ok())
-        .filter(|e| e.file_type().is_file())
-    {
-        let ext = entry.path().extension().and_then(|e| e.to_str());
-        if let Some(ext) = ext {
-            if extensions.contains(&ext) {
-                // Skip common exclusions
-                let path_str = entry.path().to_string_lossy().to_lowercase();
+    // Save current directory and change to target path for glob patterns
+    let original_dir = std::env::current_dir()?;
+
+    // Change to the target directory for relative glob patterns
+    std::env::set_current_dir(path)?;
+
+    let patterns = [
+        "**/*.rs",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.js",
+        "**/*.jsx",
+        "**/*.py",
+        "**/*.go",
+    ];
+
+    for pattern in &patterns {
+        if let Ok(glob) = glob::glob(pattern) {
+            for entry in glob.flatten() {
+                // Skip exclusions
+                let path_str = entry.to_string_lossy().to_lowercase();
                 if !path_str.contains("node_modules")
                     && !path_str.contains("target")
                     && !path_str.contains(".git")
                     && !path_str.contains("dist")
                     && !path_str.contains("build")
+                    && !path_str.contains(".next")
+                    && !path_str.contains("turbo")
                 {
-                    files.push(entry.path().to_path_buf());
+                    // Convert to absolute path
+                    if let Ok(abs_path) = entry.canonicalize() {
+                        files.push(abs_path);
+                    } else {
+                        files.push(entry);
+                    }
                 }
             }
         }
     }
 
+    // Restore original directory
+    std::env::set_current_dir(original_dir)?;
+
+    tracing::debug!("Found {} source files", files.len());
     Ok(files)
 }
 
