@@ -113,15 +113,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
 
 [[package]]
-name = "bincode"
-version = "1.3.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b1f45e9417d87227c7a56d22e471c6206462cba514c7590c09aff4cf6d1ddcad"
-dependencies = [
- "serde",
-]
-
-[[package]]
 name = "bitflags"
 version = "1.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -978,173 +969,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "lumenx-analyze"
-version = "0.6.2"
-dependencies = [
- "dashmap",
- "glob",
- "lumenx-core",
- "lumenx-score",
- "rayon",
- "regex",
- "serde",
- "serde_json",
- "tracing",
- "tree-sitter",
- "tree-sitter-css",
- "tree-sitter-go",
- "tree-sitter-javascript",
- "tree-sitter-python",
- "tree-sitter-rust",
- "tree-sitter-typescript",
- "walkdir",
-]
-
-[[package]]
-name = "lumenx-cli"
-version = "0.6.2"
-dependencies = [
- "anyhow",
- "clap",
- "colored",
- "console",
- "glob",
- "indicatif",
- "lumenx-analyze",
- "lumenx-core",
- "lumenx-detect",
- "lumenx-diff",
- "lumenx-fix",
- "lumenx-history",
- "lumenx-report",
- "lumenx-score",
- "lumenx-testgen",
- "notify",
- "serde_json",
- "tokio",
- "tracing",
- "tracing-subscriber",
- "walkdir",
-]
-
-[[package]]
-name = "lumenx-core"
-version = "0.6.2"
-dependencies = [
- "anyhow",
- "glob",
- "regex",
- "serde",
- "serde_json",
- "thiserror",
- "toml",
- "tracing",
- "walkdir",
-]
-
-[[package]]
-name = "lumenx-detect"
-version = "0.6.2"
-dependencies = [
- "cargo_toml",
- "glob",
- "lumenx-core",
- "regex",
- "serde",
- "serde_json",
- "toml",
- "tracing",
- "walkdir",
-]
-
-[[package]]
-name = "lumenx-diff"
-version = "0.6.2"
-dependencies = [
- "git2",
- "lumenx-analyze",
- "lumenx-core",
- "lumenx-score",
- "serde",
- "serde_json",
- "thiserror",
- "tracing",
-]
-
-[[package]]
-name = "lumenx-fix"
-version = "0.6.2"
-dependencies = [
- "chrono",
- "diffy",
- "lumenx-analyze",
- "lumenx-core",
- "lumenx-score",
- "regex",
- "serde",
- "serde_json",
- "tracing",
-]
-
-[[package]]
-name = "lumenx-history"
-version = "0.6.2"
-dependencies = [
- "chrono",
- "lumenx-core",
- "lumenx-score",
- "rusqlite",
- "serde",
- "serde_json",
- "thiserror",
- "tracing",
-]
-
-[[package]]
-name = "lumenx-report"
-version = "0.6.2"
-dependencies = [
- "chrono",
- "colored",
- "console",
- "handlebars",
- "lumenx-core",
- "lumenx-score",
- "serde",
- "serde_json",
- "tracing",
-]
-
-[[package]]
-name = "lumenx-score"
-version = "0.6.2"
-dependencies = [
- "chrono",
- "lumenx-core",
- "serde",
- "serde_json",
- "tracing",
-]
-
-[[package]]
-name = "lumenx-testgen"
-version = "0.6.2"
-dependencies = [
- "bincode",
- "blake3",
- "handlebars",
- "lru",
- "lumenx-core",
- "rayon",
- "regex",
- "serde",
- "serde_json",
- "tempfile",
- "tracing",
- "walkdir",
-]
-
-[[package]]
 name = "matchers"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1249,6 +1073,77 @@ name = "number_prefix"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "830b246a0e5f20af87141b25c173cd1b609bd7779a4617d6ec582abaf90870f3"
+
+[[package]]
+name = "oalacea-lumen"
+version = "0.6.5"
+dependencies = [
+ "anyhow",
+ "blake3",
+ "chrono",
+ "clap",
+ "colored",
+ "console",
+ "diffy",
+ "glob",
+ "handlebars",
+ "indicatif",
+ "lru",
+ "notify",
+ "oalacea-lumen-analysis",
+ "oalacea-lumen-core",
+ "rayon",
+ "regex",
+ "serde_json",
+ "tempfile",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "walkdir",
+]
+
+[[package]]
+name = "oalacea-lumen-analysis"
+version = "0.6.5"
+dependencies = [
+ "chrono",
+ "dashmap",
+ "git2",
+ "glob",
+ "oalacea-lumen-core",
+ "rayon",
+ "regex",
+ "rusqlite",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "tracing",
+ "tree-sitter",
+ "tree-sitter-css",
+ "tree-sitter-go",
+ "tree-sitter-javascript",
+ "tree-sitter-python",
+ "tree-sitter-rust",
+ "tree-sitter-typescript",
+ "walkdir",
+]
+
+[[package]]
+name = "oalacea-lumen-core"
+version = "0.6.5"
+dependencies = [
+ "anyhow",
+ "cargo_toml",
+ "chrono",
+ "glob",
+ "regex",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "toml",
+ "tracing",
+ "walkdir",
+]
 
 [[package]]
 name = "once_cell"

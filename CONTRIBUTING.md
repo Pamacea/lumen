@@ -1,6 +1,6 @@
 # Contributing to LumenX
 
-Thank you for your interest in contributing to LumenX!
+Thank you for your interest in contributing to Lumen!
 
 ## How to Contribute
 
@@ -40,24 +40,6 @@ cargo watch -x check -x test -x run --bin lumenx
 - Use `cargo clippy` for linting before committing
 - Write tests for new features and bug fixes
 - Update documentation as needed
-
-## Project Structure
-
-```
-lumen/
-├── crates/
-│   ├── lumenx-cli/     # Command-line interface
-│   ├── lumenx-core/    # Core types and utilities
-│   ├── lumenx-detect/   # Framework detection
-│   ├── lumenx-analyze/  # Code analysis engines
-│   ├── lumenx-score/    # Quality scoring system
-│   ├── lumenx-fix/      # Automatic fixes
-│   ├── lumenx-report/   # Report generation
-│   ├── lumenx-testgen/  # Test generation
-│   ├── lumenx-history/  # Score history tracking
-│   └── lumenx-diff/     # Git diff analysis
-└── examples/            # Example projects
-```
 
 ## Pull Request Process
 
