@@ -1076,7 +1076,7 @@ dependencies = [
 
 [[package]]
 name = "oalacea-lumen"
-version = "0.6.7"
+version = "0.6.8"
 dependencies = [
  "anyhow",
  "blake3",
@@ -1105,7 +1105,7 @@ dependencies = [
 
 [[package]]
 name = "oalacea-lumen-analysis"
-version = "0.6.7"
+version = "0.6.8"
 dependencies = [
  "chrono",
  "dashmap",
@@ -1131,7 +1131,7 @@ dependencies = [
 
 [[package]]
 name = "oalacea-lumen-core"
-version = "0.6.7"
+version = "0.6.8"
 dependencies = [
  "anyhow",
  "cargo_toml",

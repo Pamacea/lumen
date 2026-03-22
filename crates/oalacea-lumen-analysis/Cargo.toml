@@ -1,6 +1,6 @@
 [package]
 name = "oalacea-lumen-analysis"
-version = "0.6.7"
+version = "0.6.8"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Oalacea <contact@oalacea.com>"]
@@ -12,7 +12,7 @@ description = "Analysis engine for Oalacea Lumen - static analysis, diff, and hi
 
 [dependencies]
 # Internal
-oalacea-lumen-core = { version = "0.6.7", path = "../oalacea-lumen-core" }
+oalacea-lumen-core = { version = "0.6.8", path = "../oalacea-lumen-core" }
 
 # Serialization
 serde = { version = "1.0", features = ["derive"] }

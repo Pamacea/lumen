@@ -79,8 +79,14 @@ pub fn check_vite_vue(root: &Path) -> bool {
         && package_has_dep(root, "vue")
 }
 
+/// Check if project uses Vite + Svelte
+pub fn check_vite_svelte(root: &Path) -> bool {
+    root.join("vite.config.js").exists()
+        && package_has_dep(root, "svelte")
+}
+
 /// Helper: Check if package.json has a dependency
-fn package_has_dep(root: &Path, dep_name: &str) -> bool {
+pub fn package_has_dep(root: &Path, dep_name: &str) -> bool {
     let pkg_path = root.join("package.json");
     if !pkg_path.exists() {
         return false;
@@ -119,4 +125,39 @@ fn cargo_has_dep(root: &Path, dep_name: &str) -> bool {
     }
     
     false
+}
+
+/// Check if project is Poem (Rust)
+pub fn check_poem(root: &Path) -> bool {
+    cargo_has_dep(root, "poem")
+}
+
+/// Check if project uses Dioxus (Rust GUI)
+pub fn check_dioxus(root: &Path) -> bool {
+    cargo_has_dep(root, "dioxus") || cargo_has_dep(root, "dioxus-cli")
+}
+
+/// Check if project uses Leptos (Rust web framework)
+pub fn check_leptos(root: &Path) -> bool {
+    cargo_has_dep(root, "leptos") || cargo_has_dep(root, "leptos_dom")
+}
+
+/// Check if project uses Tauri (Rust desktop)
+pub fn check_tauri(root: &Path) -> bool {
+    cargo_has_dep(root, "tauri") || cargo_has_dep(root, "tauri-build")
+}
+
+/// Check if project uses Yew (Rust web framework)
+pub fn check_yew(root: &Path) -> bool {
+    cargo_has_dep(root, "yew")
+}
+
+/// Check if project uses Seed (Rust web framework)
+pub fn check_seed(root: &Path) -> bool {
+    cargo_has_dep(root, "seed")
+}
+
+/// Check if project uses Tokio (async runtime)
+pub fn check_tokio(root: &Path) -> bool {
+    cargo_has_dep(root, "tokio") || cargo_has_dep(root, "tokio-runtime")
 }

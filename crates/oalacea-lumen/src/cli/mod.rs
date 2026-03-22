@@ -25,7 +25,7 @@ use crate::cli::analyzer::CodeAnalyzer;
 #[derive(Parser, Debug)]
 #[command(name = "lumen")]
 #[command(author = "Oalacea <contact@oalacea.com>")]
-#[command(version = "0.6.7")]
+#[command(version = "0.6.8")]
 #[command(about = "AI-powered code analysis and test generation toolkit", long_about = None)]
 #[command(after_help = "Examples:
   lumen scan
@@ -75,6 +75,10 @@ pub enum Commands {
         /// Minimum severity level to report
         #[arg(long, value_enum)]
         severity: Option<SeverityLevel>,
+
+        /// Generate all report formats
+        #[arg(long)]
+        all: bool,
     },
 
     /// Initialize Lumen configuration in the project
@@ -416,8 +420,8 @@ impl Cli {
 
     async fn run_with_cli(cli: LumenCli) -> Result<()> {
         match cli.command {
-            Commands::Scan { path, output, format, dimensions, severity } => {
-                Self::handle_scan(path, output, format, dimensions, severity, cli.quiet, cli.verbose).await
+            Commands::Scan { path, output, format, dimensions, severity, all } => {
+                Self::handle_scan(path, output, format, dimensions, severity, all, cli.quiet, cli.verbose).await
             }
             Commands::Init { path, defaults } => {
                 Self::handle_init(path, defaults).await
@@ -455,6 +459,7 @@ impl Cli {
         format: Option<OutputFormat>,
         _dimensions: Option<String>,
         _severity: Option<SeverityLevel>,
+        all: bool,
         quiet: bool,
         verbose: bool,
     ) -> Result<()> {
@@ -508,7 +513,40 @@ impl Cli {
 
         // Handle output
         if let Some(output_path) = output {
-            Self::write_report(&score_result, &project_info, output_path, format).await?;
+            if all {
+                // Generate all report formats
+                let formats = vec![
+                    OutputFormat::Markdown,
+                    OutputFormat::Json,
+                    OutputFormat::Html,
+                    OutputFormat::JUnit,
+                ];
+                std::fs::create_dir_all(&output_path)?;
+
+                for fmt in formats {
+                    let filename = format!("lumen-report.{}", match fmt {
+                        OutputFormat::Markdown => "md",
+                        OutputFormat::Json => "json",
+                        OutputFormat::Html => "html",
+                        OutputFormat::JUnit => "xml",
+                    });
+                    let file_path = output_path.join(&filename);
+
+                    let content = match fmt {
+                        OutputFormat::Markdown => Self::generate_markdown_report(&score_result),
+                        OutputFormat::Json => Self::generate_json_report(&score_result),
+                        OutputFormat::Html => Self::generate_html_report(&score_result),
+                        OutputFormat::JUnit => Self::generate_junit_report(&score_result),
+                    };
+
+                    std::fs::write(&file_path, content)?;
+                    if !quiet {
+                        println!("   📄 Generated: {}", file_path.display());
+                    }
+                }
+            } else {
+                Self::write_report(&score_result, &project_info, output_path, format).await?;
+            }
         }
 
         Ok(())

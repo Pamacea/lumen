@@ -1,6 +1,6 @@
 [package]
 name = "oalacea-lumen"
-version = "0.6.7"
+version = "0.6.8"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Oalacea <contact@oalacea.com>"]
@@ -17,8 +17,8 @@ path = "src/main.rs"
 
 [dependencies]
 # Internal crates
-oalacea-lumen-core = { version = "0.6.7", path = "../oalacea-lumen-core" }
-oalacea-lumen-analysis = { version = "0.6.7", path = "../oalacea-lumen-analysis" }
+oalacea-lumen-core = { version = "0.6.8", path = "../oalacea-lumen-core" }
+oalacea-lumen-analysis = { version = "0.6.8", path = "../oalacea-lumen-analysis" }
 
 # CLI
 clap = { version = "4.5", features = ["derive"] }
