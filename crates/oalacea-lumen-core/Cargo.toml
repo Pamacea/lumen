@@ -1,0 +1,37 @@
+[package]
+name = "oalacea-lumen-core"
+version = "0.6.7"
+edition = "2021"
+rust-version = "1.75"
+authors = ["Oalacea <contact@oalacea.com>"]
+license = "MIT"
+repository = "https://github.com/Oalacea/lumen"
+keywords = ["lumen", "oalacea", "core", "scoring", "code-quality"]
+categories = ["development-tools"]
+description = "Core foundations for Oalacea Lumen - types, detection, and scoring system"
+
+[dependencies]
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# File system
+walkdir = "2.5"
+glob = "0.3"
+
+# Text processing
+regex = "1.11"
+
+# Error handling
+thiserror = "2.0"
+anyhow = "1.0"
+
+# Logging
+tracing = "0.1"
+
+# Time
+chrono = "0.4"
+
+# For parsing Cargo.toml and package.json
+cargo_toml = "0.20"

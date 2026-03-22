@@ -113,15 +113,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
 
 [[package]]
-name = "bincode"
-version = "1.3.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b1f45e9417d87227c7a56d22e471c6206462cba514c7590c09aff4cf6d1ddcad"
-dependencies = [
- "serde",
-]
-
-[[package]]
 name = "bitflags"
 version = "1.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -275,6 +266,18 @@ dependencies = [
  "once_cell",
  "unicode-width",
  "windows-sys 0.59.0",
+]
+
+[[package]]
+name = "console"
+version = "0.16.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d64e8af5551369d19cf50138de61f1c42074ab970f74e99be916646777f8fc87"
+dependencies = [
+ "encode_unicode",
+ "libc",
+ "unicode-width",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -517,9 +520,9 @@ checksum = "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1"
 
 [[package]]
 name = "foldhash"
-version = "0.1.5"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d9c4f5dac5e15c24eb999c26181a6ca40b39fe946cbe4c263c7209467bc83af2"
+checksum = "77ce24cb58228fbb8aa041425bb1050850ac19177686ea6e0f41a70416f56fdb"
 
 [[package]]
 name = "form_urlencoded"
@@ -563,9 +566,9 @@ dependencies = [
 
 [[package]]
 name = "git2"
-version = "0.19.0"
+version = "0.20.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b903b73e45dc0c6c596f2d37eccece7c1c8bb6e4407b001096387c63d0d93724"
+checksum = "7b88256088d75a56f8ecfa070513a775dd9107f6530ef14919dac831af9cfe2b"
 dependencies = [
  "bitflags 2.11.0",
  "libc",
@@ -609,20 +612,14 @@ dependencies = [
 
 [[package]]
 name = "hashbrown"
-version = "0.15.5"
+version = "0.16.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9229cfe53dfd69f0609a49f65461bd93001ea1ef889cd5529dd176593f5338a1"
+checksum = "841d1cc9bed7f9236f321df977030373f4a4163ae1a7dbfe1a51a2c1a51d9100"
 dependencies = [
  "allocator-api2",
  "equivalent",
  "foldhash",
 ]
-
-[[package]]
-name = "hashbrown"
-version = "0.16.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "841d1cc9bed7f9236f321df977030373f4a4163ae1a7dbfe1a51a2c1a51d9100"
 
 [[package]]
 name = "hashlink"
@@ -783,14 +780,14 @@ dependencies = [
 
 [[package]]
 name = "indicatif"
-version = "0.17.11"
+version = "0.18.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "183b3088984b400f4cfac3620d5e076c84da5364016b4f49473de574b2586235"
+checksum = "25470f23803092da7d239834776d653104d551bc4d7eacaf31e6837854b8e9eb"
 dependencies = [
- "console",
- "number_prefix",
+ "console 0.16.3",
  "portable-atomic",
  "unicode-width",
+ "unit-prefix",
  "web-time",
 ]
 
@@ -880,9 +877,9 @@ checksum = "b5b646652bf6661599e1da8901b3b9522896f01e736bad5f723fe7a3a27f899d"
 
 [[package]]
 name = "libgit2-sys"
-version = "0.17.0+1.8.1"
+version = "0.18.3+1.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "10472326a8a6477c3c20a64547b0059e4b0d086869eee31e6d7da728a8eb7224"
+checksum = "c9b3acc4b91781bb0b3386669d325163746af5f6e4f73e6d2d630e09a35f3487"
 dependencies = [
  "cc",
  "libc",
@@ -970,178 +967,11 @@ checksum = "5e5032e24019045c762d3c0f28f5b6b8bbf38563a65908389bf7978758920897"
 
 [[package]]
 name = "lru"
-version = "0.12.5"
+version = "0.16.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "234cf4f4a04dc1f57e24b96cc0cd600cf2af460d4161ac5ecdd0af8e1f3b2a38"
+checksum = "a1dc47f592c06f33f8e3aea9591776ec7c9f9e4124778ff8a3c3b87159f7e593"
 dependencies = [
- "hashbrown 0.15.5",
-]
-
-[[package]]
-name = "lumenx-analyze"
-version = "0.6.2"
-dependencies = [
- "dashmap",
- "glob",
- "lumenx-core",
- "lumenx-score",
- "rayon",
- "regex",
- "serde",
- "serde_json",
- "tracing",
- "tree-sitter",
- "tree-sitter-css",
- "tree-sitter-go",
- "tree-sitter-javascript",
- "tree-sitter-python",
- "tree-sitter-rust",
- "tree-sitter-typescript",
- "walkdir",
-]
-
-[[package]]
-name = "lumenx-cli"
-version = "0.6.2"
-dependencies = [
- "anyhow",
- "clap",
- "colored",
- "console",
- "glob",
- "indicatif",
- "lumenx-analyze",
- "lumenx-core",
- "lumenx-detect",
- "lumenx-diff",
- "lumenx-fix",
- "lumenx-history",
- "lumenx-report",
- "lumenx-score",
- "lumenx-testgen",
- "notify",
- "serde_json",
- "tokio",
- "tracing",
- "tracing-subscriber",
- "walkdir",
-]
-
-[[package]]
-name = "lumenx-core"
-version = "0.6.2"
-dependencies = [
- "anyhow",
- "glob",
- "regex",
- "serde",
- "serde_json",
- "thiserror",
- "toml",
- "tracing",
- "walkdir",
-]
-
-[[package]]
-name = "lumenx-detect"
-version = "0.6.2"
-dependencies = [
- "cargo_toml",
- "glob",
- "lumenx-core",
- "regex",
- "serde",
- "serde_json",
- "toml",
- "tracing",
- "walkdir",
-]
-
-[[package]]
-name = "lumenx-diff"
-version = "0.6.2"
-dependencies = [
- "git2",
- "lumenx-analyze",
- "lumenx-core",
- "lumenx-score",
- "serde",
- "serde_json",
- "thiserror",
- "tracing",
-]
-
-[[package]]
-name = "lumenx-fix"
-version = "0.6.2"
-dependencies = [
- "chrono",
- "diffy",
- "lumenx-analyze",
- "lumenx-core",
- "lumenx-score",
- "regex",
- "serde",
- "serde_json",
- "tracing",
-]
-
-[[package]]
-name = "lumenx-history"
-version = "0.6.2"
-dependencies = [
- "chrono",
- "lumenx-core",
- "lumenx-score",
- "rusqlite",
- "serde",
- "serde_json",
- "thiserror",
- "tracing",
-]
-
-[[package]]
-name = "lumenx-report"
-version = "0.6.2"
-dependencies = [
- "chrono",
- "colored",
- "console",
- "handlebars",
- "lumenx-core",
- "lumenx-score",
- "serde",
- "serde_json",
- "tracing",
-]
-
-[[package]]
-name = "lumenx-score"
-version = "0.6.2"
-dependencies = [
- "chrono",
- "lumenx-core",
- "serde",
- "serde_json",
- "tracing",
-]
-
-[[package]]
-name = "lumenx-testgen"
-version = "0.6.2"
-dependencies = [
- "bincode",
- "blake3",
- "handlebars",
- "lru",
- "lumenx-core",
- "rayon",
- "regex",
- "serde",
- "serde_json",
- "tempfile",
- "tracing",
- "walkdir",
+ "hashbrown 0.16.1",
 ]
 
 [[package]]
@@ -1245,10 +1075,76 @@ dependencies = [
 ]
 
 [[package]]
-name = "number_prefix"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "830b246a0e5f20af87141b25c173cd1b609bd7779a4617d6ec582abaf90870f3"
+name = "oalacea-lumen"
+version = "0.6.7"
+dependencies = [
+ "anyhow",
+ "blake3",
+ "chrono",
+ "clap",
+ "colored",
+ "console 0.15.11",
+ "diffy",
+ "glob",
+ "handlebars",
+ "indicatif",
+ "lru",
+ "notify",
+ "oalacea-lumen-analysis",
+ "oalacea-lumen-core",
+ "once_cell",
+ "rayon",
+ "regex",
+ "serde_json",
+ "tempfile",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "walkdir",
+]
+
+[[package]]
+name = "oalacea-lumen-analysis"
+version = "0.6.7"
+dependencies = [
+ "chrono",
+ "dashmap",
+ "git2",
+ "glob",
+ "oalacea-lumen-core",
+ "rayon",
+ "regex",
+ "rusqlite",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "tracing",
+ "tree-sitter",
+ "tree-sitter-css",
+ "tree-sitter-go",
+ "tree-sitter-javascript",
+ "tree-sitter-python",
+ "tree-sitter-rust",
+ "tree-sitter-typescript",
+ "walkdir",
+]
+
+[[package]]
+name = "oalacea-lumen-core"
+version = "0.6.7"
+dependencies = [
+ "anyhow",
+ "cargo_toml",
+ "chrono",
+ "glob",
+ "regex",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "toml",
+ "tracing",
+ "walkdir",
+]
 
 [[package]]
 name = "once_cell"
@@ -1938,6 +1834,12 @@ name = "unicode-width"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b4ac048d71ede7ee76d585517add45da530660ef4390e49b098733c6e897f254"
+
+[[package]]
+name = "unit-prefix"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "81e544489bf3d8ef66c953931f56617f423cd4b5494be343d9b9d3dda037b9a3"
 
 [[package]]
 name = "url"

@@ -1,0 +1,18 @@
+{{
+  "overall_score": 54.0,
+  "grade": "F",
+  "trend": "Stable",
+  "dimensions": {
+    "coverage": {"score": 0.0, "status": "Poor"},
+    "docs": {"score": 100.0, "status": "Excellent"},
+    "performance": {"score": 70.0, "status": "Good"},
+    "quality": {"score": 50.0, "status": "Poor"},
+    "security": {"score": 90.0, "status": "Excellent"},
+    "seo": {"score": 80.0, "status": "Excellent"},
+    "uiux": {"score": 70.0, "status": "Good"}
+  },
+  "issues_count": 1,
+  "issues": [
+    {"severity": "Medium", "category": "Coverage", "message": "Test coverage is low (0.0%)"},
+  ]
+}}

@@ -1,14 +1,7 @@
 [workspace]
 members = [
-    "crates/lumenx-cli",
-    "crates/lumenx-core",
-    "crates/lumenx-detect",
-    "crates/lumenx-analyze",
-    "crates/lumenx-score",
-    "crates/lumenx-report",
-    "crates/lumenx-testgen",
-    "crates/lumenx-fix",
-    "crates/lumenx-history",
-    "crates/lumenx-diff",
+    "crates/oalacea-lumen-core",
+    "crates/oalacea-lumen-analysis",
+    "crates/oalacea-lumen",
 ]
 resolver = "2"
