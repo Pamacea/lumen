@@ -1,12 +1,32 @@
 # Lumen
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Crates.io](https://img.shields.io/crates/v/lumen)](https://crates.io/crates/lumen)
-[![docs.rs](https://img.shields.io/docsrs/lumen)](https://docs.rs/lumen)
 
 > AI-powered code analysis and test generation toolkit - 100% Rust
 
 **Lumen** analyzes your codebase, generates quality reports, and provides AI-ready fix suggestions for automated code improvement.
+
+## 📦 Workspace Architecture
+
+This is a Cargo workspace consolidated from 10 micro-crates to **3 focused crates**:
+
+```
+lumen/
+├── Cargo.toml                 # Workspace root
+├── crates/
+│   ├── oalacea-lumen-core/    # Core types, config, scoring, trends
+│   ├── oalacea-lumen-analysis/# AST parsing, language detection, diff
+│   └── oalacea-lumen/         # CLI binary (lumen)
+└── README.md
+```
+
+### Crates Overview
+
+| Crate | Description |
+|-------|-------------|
+| **oalacea-lumen-core** | Core types, configuration, 7-dimension scoring, history tracking |
+| **oalacea-lumen-analysis** | Tree-sitter AST parsing, language detection, code diff |
+| **oalacea-lumen** | CLI application (lumen binary) |
 
 ## Features
 
@@ -20,14 +40,14 @@
 ## Quick Start
 
 ```bash
-# Install
-cargo install lumen-cli
+# Install from source (development)
+cargo install --path crates/oalacea-lumen
 
-# Analyze your project
-lumenx scan
+# Or build and run directly
+cargo run --release --bin lumen -- scan
 
 # Get AI-ready fixes
-lumenx scan --output ./reports
+lumen scan --output ./reports
 cat ./reports/fixes.md  # Feed this to Claude Code, Cursor, etc.
 ```
 
@@ -75,15 +95,15 @@ cat ./reports/fixes.md  # Feed this to Claude Code, Cursor, etc.
 ## Commands
 
 ```bash
-lumenx scan                    # Full analysis with AI-ready fixes
-lumenx init                    # Initialize config
-lumenx detect                  # Detect framework and tools
-lumenx analyze                  # Analyze code only
-lumenx score                    # Show quality scores
-lumenx generate-tests           # Generate test templates
-lumenx fix                      # Apply automatic fixes
-lumenx report --format=html     # Generate reports
-lumenx history                  # View score trends
+lumen scan                    # Full analysis with AI-ready fixes
+lumen init                    # Initialize config
+lumen detect                  # Detect framework and tools
+lumen analyze                  # Analyze code only
+lumen score                    # Show quality scores
+lumen generate-tests           # Generate test templates
+lumen fix                      # Apply automatic fixes
+lumen report --format=html     # Generate reports
+lumen history                  # View score trends
 ```
 
 ## Supported Frameworks
@@ -101,11 +121,12 @@ lumenx history                  # View score trends
 ## Installation
 
 ```bash
-# From crates.io
-cargo install lumenx-cli
+# Build from source (current development)
+git clone https://github.com/Oalacea/lumen.git
+cd lumen
+cargo install --path crates/oalacea-lumen
 
-# Or build from source
-cargo install --path .
+# The binary will be installed as `lumen`
 ```
 
 ## Documentation

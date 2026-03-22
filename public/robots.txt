@@ -1,4 +1,4 @@
-# LumenX robots.txt
+# Lumen robots.txt
 
 # Allow all crawlers
 User-agent: *
